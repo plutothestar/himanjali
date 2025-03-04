@@ -1,0 +1,313 @@
+.appointments-container {
+  // max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  // min-height: calc(100vh - 100px);
+}
+
+.appointments-left {
+  flex: 1;
+  // padding: 4rem 0;
+}
+
+.appointments-right {
+  // flex: 1;
+  background: white;
+  padding: 0.5rem;
+  border-radius: 20px;
+  max-height: 490px;
+  min-height: 415px;
+  height: 50vh;
+  position: relative;
+}
+
+.appointments-title {
+  font-size: 4rem;
+  font-weight: 300;
+  color: var(--purple-primary);
+  opacity: 0.5;
+  // margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.appointments-description {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--purple-tertiary);
+  margin-bottom: 1rem;
+}
+
+.notice-box {
+  background-color: #FFEBEB;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 2rem 0;
+}
+
+.notice-text {
+  color: var(--red);
+  margin: 0;
+}
+
+.notice-subtext {
+  color: var(--red);
+  font-size: 0.9rem;
+  margin: 0.5rem 0 0 0;
+}
+
+.auth-links {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+}
+
+.auth-link {
+  color: var(--purple-tertiary);
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.auth-link:hover {
+  color: var(--purple-primary);
+}
+
+.service-info {
+  color: var(--purple-secondary);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin: 2rem 0;
+}
+
+.mobile-menu {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--purple-soft);
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .appointments-container {
+    flex-direction: column;
+    margin-bottom: 3rem;
+  }
+
+  .appointments-left {
+    padding: 0;
+  }
+
+  // .appointments-right {
+  //   // margin: 1rem;
+  // }
+
+  .appointments-title {
+    font-size: 2.5rem;
+  }
+}
+
+// Lavender pastel theme stepper form
+.stepper-container {
+  font-family: 'Arial', sans-serif;
+  color: #4A235A;
+  width: 100%;
+  // max-width: 600px;
+  // margin: 20px auto;
+  padding: 20px;
+  border-radius: 12px;
+  background: #E6E6FA;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+  .progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background: #D8BFD8;
+    border-radius: 4px;
+    overflow: hidden;
+
+    .progress-bar {
+      height: 100%;
+      background: #9370DB;
+      transition: width 0.3s ease;
+    }
+  }
+
+  .slots-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .steps-indicator {
+    display: flex;
+    justify-content: space-around;
+    align-items: baseline;
+    margin: 10px 0;
+
+    .step {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin: 0 0.3rem;
+
+      .step-number {
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        background: #DDA0DD;
+        color: white;
+        font-weight: bold;
+        margin-bottom: 8px;
+      }
+
+      &.active .step-number {
+        background: #9370DB;
+      }
+
+      .step-label {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .step-content {
+    // padding: 15px;
+    background: #FFF0F5;
+    border-radius: 8px;
+    border: 1px solid #DDA0DD;
+    margin-bottom: 20px;
+
+    h2 {
+      font-size: 20px;
+      color: #4A235A;
+    }
+
+    input,textarea {
+      display: block;
+      width: calc(100% - 20px);
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #9370DB;
+      border-radius: 6px;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input.invalid {
+      border-color: #FF6347;
+    }
+  }
+
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+
+      &:disabled {
+        background: #D8BFD8;
+        cursor: not-allowed;
+      }
+
+      &:nth-child(1) {
+        background: #9370DB;
+
+        &:hover:not(:disabled) {
+          background: #7B68EE;
+        }
+      }
+
+      &:nth-child(2) {
+        background: #BA55D3;
+
+        &:hover:not(:disabled) {
+          background: #9932CC;
+        }
+      }
+
+      &:nth-child(3) {
+        background: #BA55D3;
+
+        &:hover:not(:disabled) {
+          background: #9932CC;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+/* From Uiverse.io by cssbuttons-io */
+.slot-button {
+  align-items: center;
+  background-image: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
+  border: 0;
+  border-radius: 8px;
+  box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: #ffffff;
+  display: flex;
+  font-size: 1rem;
+  justify-content: center;
+  line-height: 1em;
+  max-width: 100%;
+  min-width: 25%;
+  padding: 2px;
+  margin: 2px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s;
+
+}
+
+.slot-button:active,
+.slot-button:hover {
+  outline: 0;
+}
+
+.slot-button span {
+  background-color: rgb(5, 6, 45);
+  padding: 8px;
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+  transition: 300ms;
+}
+
+.slot-button:hover span {
+  background: none;
+}
+
+.slot-button:active {
+  transform: scale(0.9);
+}
+
+.slot-button.active span {
+  background: none;
+}
+
+.appointmentForm {
+  .error {
+    color: red;
+    font-size: 0.7rem;
+  }
+  .meeting-details{
+    display: flex;
+  }
+}

@@ -1,0 +1,77 @@
+.about-section {
+    max-width: 800px;
+    // margin: 0 auto;
+  }
+  .about-name {
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--purple-primary);
+    margin-bottom: 2rem;
+  }
+  .about-description {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--purple-secondary);
+    margin-bottom: 4rem;
+  }
+  .hero-section {
+    position: relative;
+    height: 60vh;
+    background-image: url('https://images.squarespace-cdn.com/content/v1/663a0e627fedd37778dcba19/1715440352479-CCBQ51ZK5WW40GC13TSV/image-asset.jpeg?format=1500w');
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 4rem;
+  }
+  .hero-content {
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    text-align: center;
+    color: white;
+    // background-image: url('https://images.squarespace-cdn.com/content/v1/663a0e627fedd37778dcba19/1715086119041-BOLX5642AATJJGIZ6YAK/image-asset.jpeg?format=1500w');
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // flex-direction: column;
+  }
+  .hero-title {
+    font-size: 4rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+  .btn-view-services {
+    background-color: var(--purple-light);
+    color: var(--purple-tertiary);
+    border: none;
+    padding: 12px 32px;
+    border-radius: 50px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  .btn-view-services:hover {
+    background-color: var(--purple-primary);
+    color: white;
+    transform: translateY(-2px);
+  }
+  .mobile-menu {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid var(--purple-soft);
+  }
+  /* Responsive adjustments */
+  @media screen and (max-width: 768px) {
+    .about-name {
+      font-size: 2.5rem;
+      text-align: center;
+    }
+
+    .hero-title {
+      font-size: 2.5rem;
+    }
+
+    .about-description {
+      font-size: 1rem;
+      padding: 0 1rem;
+    }
+  }

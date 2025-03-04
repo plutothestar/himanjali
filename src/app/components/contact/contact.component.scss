@@ -1,0 +1,78 @@
+.contact-section {
+    padding: 50px 15px;
+}
+
+h1 {
+    font-size: 4rem;
+    color: rgba(155, 135, 245, 0.5);
+}
+
+p {
+    font-size: 1rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.email {
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.email:hover {
+    text-decoration: underline;
+}
+
+.phone {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 2rem;
+}
+
+.form-label {
+    font-weight: bold;
+    color: #333;
+}
+
+.required {
+    color: #d9534f;
+    font-weight: normal;
+}
+
+.form-control {
+    border-radius: 25px;
+    border: 1px solid #ccc;
+    box-shadow: none;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.btn-dark {
+    border-radius: 25px;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.contact-image {
+    // border-radius: 8px;
+    width: 100%;
+    max-height: 600px;
+    object-fit: cover;
+}
+
+@media screen and  (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+        text-align: center;
+    }
+
+    .text-content {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .contact-image {
+        margin-top: 20px;
+    }
+}

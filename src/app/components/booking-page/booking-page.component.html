@@ -1,0 +1,123 @@
+<div class="container p-0">
+  <div class="row text-center">
+    <div class="col-md-12">
+      <h1 class="appointments-title">Discover inner harmony</h1>
+    </div>
+    <div class="col-md-12">
+      <p class="appointments-description">
+        Begin your journey to transformation and renewal. Embrace the
+        power of self-discovery and unlock your true potential.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<div class="container p-0 mb-5">
+  <div class="appointments-container row m-3 g-4">
+    <div class="appointments-right col-md-4 ">
+      <iframe [src]="calendarUrl | safeUrl" style="width: 100%; height: 100%; border: 0;" frameborder="0"
+        scrolling="no"></iframe>
+    </div>
+
+    <div class="appointments-left col-md-8">
+      <div class="stepper-container">
+        <!-- Progress Bar -->
+        <div class="progress-bar-container">
+          <div class="progress-bar" [style.width.%]="progress"></div>
+        </div>
+
+        <!-- Steps Indicator -->
+        <div class="steps-indicator">
+          <div class="step" *ngFor="let step of steps; let i = index" [class.active]="i <= currentStep">
+            <span class="step-number">{{ i + 1 }}</span>
+            <span class="step-label">{{ step.label }}</span>
+          </div>
+        </div>
+
+        <!-- Step Content -->
+        <div class="step-content">
+          <form [formGroup]="appointmentForm" class="appointmentForm">
+            <!-- Step 1: Select Slot -->
+            <div *ngIf="currentStep === 0">
+              <div class="row">
+                <div class="col-md-4">
+                  <mat-calendar [(selected)]="selectedDate" (selectedChange)="onDateSelected($event)"></mat-calendar>
+                </div>
+                <div class="col-md-8 p-3">
+                  <small>Select your preferred slot</small>
+                  <div class="slots-wrapper" *ngIf="finalAvailableSlots.length > 0; else noSlots">
+                    <div class="step" *ngFor="let slot of finalAvailableSlots; let i = index">
+                      <button class="slot-button" [class.active]="selectedSlot === slot" (click)="selectSlot(slot)">
+                        <span class="text">{{ slot.start | date:'HH:mm aa' }} - {{ slot.end | date:'HH:mm aa' }}</span>
+                      </button>
+                    </div>
+                  </div>
+                  <ng-template #noSlots>
+                    <p>No available time slots.</p>
+                  </ng-template>
+                  <div
+                    *ngIf="appointmentForm.get('step1.selectedSlot')?.touched && appointmentForm.get('step1.selectedSlot')?.invalid"
+                    class="error">Please select a slot</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: Enter Details -->
+            <div *ngIf="currentStep === 1" class="p-3" formGroupName="step2">
+              <p>Enter your Name, Email, Contact</p>
+              <input type="text" formControlName="name" placeholder="Name">
+              <div *ngIf="appointmentForm.get('step2.name')?.touched && appointmentForm.get('step2.name')?.invalid"
+                class="error">Name is required</div>
+
+              <input type="text" formControlName="email" placeholder="Email">
+              <div *ngIf="appointmentForm.get('step2.email')?.touched && appointmentForm.get('step2.email')?.invalid"
+                class="error">Enter a valid email</div>
+
+              <input type="text" formControlName="contact" placeholder="Contact">
+              <div
+                *ngIf="appointmentForm.get('step2.contact')?.touched && appointmentForm.get('step2.contact')?.invalid"
+                class="error">Enter a valid 10-digit contact</div>
+            </div>
+
+            <!-- Step 3: Confirmation -->
+            <div *ngIf="currentStep === 2" class="p-3" formGroupName="step3">
+
+              <div class="meeting-details row">
+                <div class="col-md-6">
+                  <h2>Confirmation</h2>
+                  <p>Please confirm your preferences.</p>
+                  <p>Slot: {{ selectedSlot.start | date:'HH:mm aa' }} - {{ selectedSlot.end | date:'HH:mm aa' }} on
+                    {{selectedDate | date:'dd/MM/yyyy'}}</p>
+                  <p>Email: {{appointmentForm.get('step2.email')?.value}}</p>
+                  <p>Booked for: {{appointmentForm.get('step2.name')?.value}}</p>
+                </div>
+                <div class="col-md-6">
+                  <p>Want to add some details :
+                    <!-- <input type="text" formControlName="description" placeholder="description"> -->
+                    <textarea name="description" placeholder="description"  formControlName="description" id=""></textarea>
+                  </p>
+                </div>
+              </div>
+
+
+            </div>
+          </form>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="navigation-buttons">
+          <button (click)="previousStep()" [disabled]="currentStep === 0">Previous</button>
+          <button (click)="nextStep()" *ngIf="currentStep !== steps.length - 1; else payButton">Next</button>
+          <ng-template #payButton>
+            <button (click)="createEvent()">Book</button>
+           <button (click)="payWithStripe()">Pay ₹100</button>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
