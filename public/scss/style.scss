@@ -703,6 +703,7 @@ h1, h2, h3, h4, h5,
 //ABOUT
 .ftco-about{
 	.one-half{
+
 		width: 100%;
 		padding: 30px 15px;
 		@include media-breakpoint-up(md){
@@ -719,8 +720,11 @@ h1, h2, h3, h4, h5,
 			@include media-breakpoint-up(md){
 				margin-left: -150px;
 				padding: 40px;
-				background:rgba(0,0,0,.5);
+				//background:rgba(0,0,0,.5);
 			}
+		}
+		.bg-sage{
+			background:#C6C09C;
 		}
 	}
 }
