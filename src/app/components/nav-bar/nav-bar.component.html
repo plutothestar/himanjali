@@ -1,41 +1,28 @@
-<div class="container">
-    <nav class="navbar navbar-expand-md py-4 fade-in">
-        <div class="container-fluid px-0">
-            <a class="navbar-brand brand" routerLink="home"><img src="logo.png" class="w-25" alt=""></a>
-
-            <div class="d-none d-md-flex align-items-center">
-                <ul class="navbar-nav me-4">
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="services">Services</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="bookings">Appointments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-                            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 24 24">
-                                <path d="M 8 3 C 5.243 3 3 5.243 3 8 L 3 16 C 3 18.757 5.243 21 8 21 L 16 21 C 18.757 21 21 18.757 21 16 L 21 8 C 21 5.243 18.757 3 16 3 L 8 3 z M 8 5 L 16 5 C 17.654 5 19 6.346 19 8 L 19 16 C 19 17.654 17.654 19 16 19 L 8 19 C 6.346 19 5 17.654 5 16 L 5 8 C 5 6.346 6.346 5 8 5 z M 17 6 A 1 1 0 0 0 16 7 A 1 1 0 0 0 17 8 A 1 1 0 0 0 18 7 A 1 1 0 0 0 17 6 z M 12 7 C 9.243 7 7 9.243 7 12 C 7 14.757 9.243 17 12 17 C 14.757 17 17 14.757 17 12 C 17 9.243 14.757 7 12 7 z M 12 9 C 13.654 9 15 10.346 15 12 C 15 13.654 13.654 15 12 15 C 10.346 15 9 13.654 9 12 C 9 10.346 10.346 9 12 9 z"></path>
-                            </svg>
-                        </a>
-                    </li>
-                </ul>
-                <button class="btn btn-outline-purple" routerLink="bookings">Book appointment</button>
-            </div>
-        </div>
-    </nav>
-    <!-- Mobile Menu -->
-    <div class="fixed-bottom d-md-none mobile-menu py-3">
-        <div class="d-flex justify-content-around">
-            <a class="nav-link" routerLink="services">Services</a>
-            <a class="nav-link" routerLink="about">About</a>
-            <a class="nav-link" routerLink="bookings">Appointments</a>
-            <a class="nav-link" routerLink="contact">Contact</a>
-        </div>
-    </div>
-</div>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">Himanjali <small>Dimri</small></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="oi oi-menu"></span> Menu
+      </button>
+      <div class="collapse navbar-collapse" id="ftco-nav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a routerLink="home" class="nav-link">Home</a></li>
+          <!-- <li class="nav-item"><a href="menu.html" class="nav-link">Menu</a></li> -->
+          <li class="nav-item"><a  routerLink="services" class="nav-link">Services</a></li>
+          <li class="nav-item"><a  routerLink="bookings" class="nav-link">Bookings</a></li>
+          <li class="nav-item"><a  routerLink="about" class="nav-link">About</a></li>
+          <!-- <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="room.html" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shop</a>
+          <div class="dropdown-menu" aria-labelledby="dropdown04">
+              <a class="dropdown-item" href="shop.html">Shop</a>
+            <a class="dropdown-item" href="product-single.html">Single Product</a>
+            <a class="dropdown-item" href="room.html">Cart</a>
+            <a class="dropdown-item" href="checkout.html">Checkout</a>
+          </div>
+        </li> -->
+          <li class="nav-item"><a routerLink="contact" class="nav-link">Contact</a></li>
+          <!-- <li class="nav-item cart"><a href="cart.html" class="nav-link"><span class="icon icon-shopping_cart"></span><span class="bag d-flex justify-content-center align-items-center"><small>1</small></span></a></li> -->
+        </ul>
+      </div>
+      </div>
+  </nav>
