@@ -32,12 +32,12 @@ html {
 }
 body {
 	font-family: $font-primary;
-	background: $darken;
+	background: #C6c09C;
 	font-size: 15px;
 	line-height: 1.8;
 	font-weight: 300;
-	color: lighten($black,50%);
-	background: url(../images/bg_4.jpg) no-repeat fixed;
+	color: $black;
+	// background: url(../images/bg_4.jpg) no-repeat fixed;
 	background-size: cover;
 	&.menu-show {
 		overflow: hidden;
@@ -47,7 +47,7 @@ body {
 	}
 }
 span{
-	color: lighten($black,75%);
+	color: $black;
 }
 a {
 	transition: .3s all ease;
@@ -943,7 +943,7 @@ h1, h2, h3, h4, h5,
 		background: transparent;
 		padding: 16px 20px;
 	}
-	button,.form-control{;
+	button,.form-control{
 		height: 54px !important;
 		text-align: center;
 		bordeR: 1px solid rgba(255,255,255,.1) !important;
