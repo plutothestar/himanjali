@@ -1,10 +1,10 @@
 export const environment = {
   production: false,
   vercel: {
-    ApiUrl: 'https://nodejs-serverless-function-express-rho-lime.vercel.app/api',
+    ApiUrl: 'https://himacuity.vercel.app/api',
   },
-  availablityCalender:'f520820589558a4637ada65aa3688d87138945d5855e5c05ebea4fd87e3068ad@group.calendar.google.com',
-  appointmentCalender:'3771b1c4fd3eb1dada1c1ac127288f662d60174f7d402fd249f5b91e9c4faa67@group.calendar.google.com',
+  availablityCalender:'2595d4bfcf2f2b790e73b9775c011460d22aece0bd463cfffdc5c21563013485@group.calendar.google.com',
+  appointmentCalender:'1d94c4c882ea6f4754d7a97fb2ad865b79379330c02fbb07aa542bf17301a91a@group.calendar.google.com',
    currentHost: `${window.location.protocol}//${window.location.hostname}`,
 };
 
