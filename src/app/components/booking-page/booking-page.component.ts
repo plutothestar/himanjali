@@ -235,6 +235,48 @@ export class BookingPageComponent implements OnInit {
       });
     }
 
+    inputValue: string = '100';
+
+  updateInputValue(event: Event): void {
+    const target = event.target as HTMLInputElement;
+    this.inputValue = target.value;
+  }
+
+  payWithRazorpay(): void {
+    if (isNaN(Number(this.inputValue))) {
+      alert('Enter numeric value');
+      return;
+    }
+
+    const finalRazorPayValue = Number(this.inputValue) * 100;
+
+    const options: any = {
+      key: environment.RazorpayKey,
+      amount: finalRazorPayValue,
+      name: 'Himanjali Dimri',
+      description: 'Himanjali Dimri appointment',
+      image: 'logo.png',
+      handler: function (response: any) {
+        alert('Payment Id ' + response.razorpay_payment_id + ' : Payment successful');
+        console.log(response);
+      },
+      prefill: {
+        name: this.appointmentForm.get('step2.name')?.value,
+        email: this.appointmentForm.get('step2.email')?.value,
+        contact: this.appointmentForm.get('step2.contact')?.value,
+      },
+      notes: {
+        address: this.appointmentForm.get('step2.description')?.value
+      },
+      theme: {
+        color: '#C6c09C'
+      }
+    };
+
+    const rzp = new (window as any).Razorpay(options);
+    rzp.open();
+  }
+
   }
 
 

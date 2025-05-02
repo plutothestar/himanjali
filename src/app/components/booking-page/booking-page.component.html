@@ -111,13 +111,20 @@
           <button (click)="nextStep()" *ngIf="currentStep !== steps.length - 1; else payButton">Next</button>
           <ng-template #payButton>
             <button (click)="createEvent()">Book</button>
-           <button (click)="payWithStripe()">Pay ₹100</button>
+           <!-- <button (click)="payWithStripe()">Pay ₹100</button> -->
+           <button (click)="payWithRazorpay()">Pay ₹100</button>
           </ng-template>
         </div>
       </div>
     </div>
 
-
-  </div>
+    <!-- <div>
+      <h1>GoExamPro - Payment Demo</h1>
+      <h3>Enter amount in INR and click pay now</h3>
+      <input [value]="inputValue" (input)="updateInputValue($event)" />
+      <br/><br/>
+      <button (click)="payWithRazorpay()">Pay INR {{ inputValue }} Now</button>
+    </div>
+  </div> -->
 
 </div>
