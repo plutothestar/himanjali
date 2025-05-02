@@ -383,6 +383,7 @@
 }
 .icon-calendar:before {
   content: "\f073";
+  color: #000;
 }
 .icon-random:before {
   content: "\f074";
@@ -497,9 +498,11 @@
 }
 .icon-twitter:before {
   content: "\f099";
+  color: #000;
 }
 .icon-facebook:before {
   content: "\f09a";
+  color: #000;
 }
 .icon-facebook-f:before {
   content: "\f09a";
@@ -1157,6 +1160,7 @@
 }
 .icon-instagram:before {
   content: "\f16d";
+  color: #000;
 }
 .icon-flickr:before {
   content: "\f16e";
@@ -2819,6 +2823,7 @@
 }
 .icon-chat:before {
   content: "\e0b7";
+  color: #000;
 }
 .icon-chat_bubble:before {
   content: "\e0ca";
@@ -4055,6 +4060,7 @@
 }
 .icon-person:before {
   content: "\e7fd";
+  color: #000;
 }
 .icon-person_add:before {
   content: "\e7fe";

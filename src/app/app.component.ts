@@ -15,7 +15,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     const homeWrapper = document.getElementById('home-static-wrapper');
-debugger
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
