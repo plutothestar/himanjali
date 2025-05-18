@@ -1,0 +1,16 @@
+[
+    {
+      "title": "How Angular and GitHub Make Blogging Easy",
+      "url": "blog-1.html",
+      "date": "May 9, 2025",
+      "author": "My Lord",
+      "image": "https://yourdomain.com/images/blog-1.jpg"
+    },
+    {
+      "title": "Second Blog Title",
+      "url": "blog-2.html",
+      "date": "May 5, 2025",
+      "author": "John Doe",
+      "image": "https://yourdomain.com/images/blog-2.jpg"
+    }
+  ]
