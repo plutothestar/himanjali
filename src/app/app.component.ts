@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {  NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { filter } from 'rxjs';
+import { FooterComponent } from "./components/footer/footer.component";import { HomeComponent } from "./components/home/home.component";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,NavBarComponent],
+  imports: [RouterOutlet, NavBarComponent, FooterComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

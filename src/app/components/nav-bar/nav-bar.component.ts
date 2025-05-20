@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 
 @Component({
@@ -9,5 +9,12 @@ import { RouterLink } from '@angular/router';
   styleUrl: './nav-bar.component.scss'
 })
 export class NavBarComponent {
+  currentRoute: string;
 
+  constructor(private router: Router) {
+    this.currentRoute = this.router.url;
+    this.router.events.subscribe(() => {
+      this.currentRoute = this.router.url;
+    });
+  }
 }
