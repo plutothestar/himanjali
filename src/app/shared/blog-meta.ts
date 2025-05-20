@@ -4,4 +4,5 @@ export interface BlogMeta {
     date: string;
     author: string;
     image: string;
+    comments: string;
 }
