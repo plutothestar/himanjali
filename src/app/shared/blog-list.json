@@ -4,13 +4,15 @@
       "url": "blog-1.html",
       "date": "May 9, 2025",
       "author": "My Lord",
-      "image": "https://yourdomain.com/images/blog-1.jpg"
+      "image": "https://yourdomain.com/images/blog-1.jpg",
+      "comments": "3"
     },
     {
       "title": "Second Blog Title",
       "url": "blog-2.html",
       "date": "May 5, 2025",
       "author": "John Doe",
-      "image": "https://yourdomain.com/images/blog-2.jpg"
+      "image": "https://yourdomain.com/images/blog-2.jpg",
+      "comments": "8"
     }
   ]

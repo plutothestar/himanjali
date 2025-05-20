@@ -4,6 +4,14 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+ @font-face {
+  font-family: 'TheSeasons';
+  src: url('/fonts/flaticon/font/TheSeasons/Fontspring-DEMO-theseasons-reg.otf') format('otf'),
+       url('/fonts/flaticon/font/TheSeasons/Fontspring-DEMO-theseasons-reg.otf') format('otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -75,11 +83,14 @@ hr {
 
 h1, h2, h3, h4, h5, h6 {
   margin-top: 0;
-  margin-bottom: 0.5rem; }
+  margin-bottom: 0.5rem;
+
+    /* color:#676700; */
+  }
 
 p {
   margin-top: 0;
-  color:#000;
+  /* color:#000; */
   margin-bottom: 1rem; }
 
 abbr[title],
@@ -7270,13 +7281,13 @@ a.text-dark:hover, a.text-dark:focus {
     border: 1px solid #dee2e6 !important; } }
 
 body {
-  font-family: "Poppins", Arial, sans-serif;
-  background: #C6c09C;
+  font-family: "Assistant","DM Sans","TheSeasons";
+  background: #FFFFF0;
   font-size: 15px;
   line-height: 1.8;
   font-weight: 300;
-  color: gray;
-  /* background: url(../images/bg_4.jpg) no-repeat fixed; */
+  color: #676700;
+  /* background: url(../images/bganother.jpg) no-repeat fixed; */
   background-size: cover; }
   body.menu-show {
     overflow: hidden;
@@ -7291,7 +7302,7 @@ a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
   transition: .3s all ease;
-  color: #c49b63; }
+  color: #676700; }
   a:hover, a:active, a:focus {
     color: #c49b63;
     outline: none !important;
@@ -7300,7 +7311,7 @@ a {
 h1, h2, h3, h4, h5,
 .h1, .h2, .h3, .h4, .h5 {
   line-height: 1.4;
-  color: #fff;
+  color: #676700;
   font-weight: 400;
   font-family: "Josefin Sans", Arial, sans-serif; }
 
@@ -7308,7 +7319,7 @@ h1, h2, h3, h4, h5,
   color: #c49b63 !important; }
 
 .ftco-navbar-light {
-  background: transparent !important;
+  /* background: transparent !important; */
   position: absolute;
   top: 0;
   left: 0;
@@ -8515,8 +8526,7 @@ textarea.form-control {
 
 .ftco-footer {
   font-size: 16px;
-  padding: 2em 0;
-  background: #C6c09C; }
+  padding: 2em 0; }
   .ftco-footer .ftco-footer-logo {
     text-transform: uppercase;
     letter-spacing: .1em; }
@@ -8530,7 +8540,7 @@ textarea.form-control {
     text-transform: uppercase;
     letter-spacing: 1px; }
   .ftco-footer .ftco-footer-widget ul li a span {
-    color: #fff; }
+    color: #676700; }
   .ftco-footer .ftco-footer-widget .btn-primary {
     background: #fff !important;
     border: 2px solid #fff !important; }
@@ -8538,9 +8548,9 @@ textarea.form-control {
       background: #fff;
       border: 2px solid #fff !important; }
   .ftco-footer p {
-    color: rgba(0, 0, 0); }
+   }
   .ftco-footer a {
-    color: rgba(0, 0, 0); }
+   }
     .ftco-footer a:hover {
       color: #fff; }
   .ftco-footer .ftco-heading-2 {
@@ -8551,7 +8561,7 @@ textarea.form-control {
     font-size: 16px;
     font-weight: 300; }
     .ftco-footer .block-21 .text .heading a {
-      color: rgba(0, 0, 0); }
+      color: #676700}
       .ftco-footer .block-21 .text .heading a:hover, .ftco-footer .block-21 .text .heading a:active, .ftco-footer .block-21 .text .heading a:focus {
         color: #c49b63; }
   .ftco-footer .block-21 .text .meta > div {
@@ -8921,7 +8931,7 @@ textarea.form-control {
     line-height: 1.5;
     margin-bottom: 15px; }
   .block-23 ul li span {
-    color: rgba(255, 255, 255, 0.7); }
+    color: #676700 }
   .block-23 ul li .icon, .block-23 ul li .text {
     display: table-cell;
     vertical-align: top; }
@@ -8929,7 +8939,7 @@ textarea.form-control {
     width: 40px;
     font-size: 18px;
     padding-top: 2px;
-    color: white; }
+ }
 
 .block-6 {
   margin-bottom: 40px; }

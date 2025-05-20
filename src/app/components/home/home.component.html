@@ -1,3 +1,18 @@
-
-
-
+<div class="row blog-cards" *ngIf="blogs.length">
+    <div class="col-md-4 mb-5" *ngFor="let blog of blogs | slice:0:3">
+      <div class="blog-card">
+        <a [routerLink]="['/blog', blog.url]" class="img-wrap">
+          <img [src]="blog.image" alt="Blog Image" class="blog-img" />
+        </a>
+        <div class="meta-info">
+          <span>{{ blog.date }}</span>
+          <span>{{ blog.author }}</span>
+          <span><i class="icon-chat"></i> {{ blog.comments }}</span>
+        </div>
+        <h3 class="blog-title">
+          <a [routerLink]="['/blog', blog.url]">{{ blog.title }}</a>
+        </h3>
+        <p class="blog-description">{{ blog.title }}</p>
+      </div>
+    </div>
+  </div>

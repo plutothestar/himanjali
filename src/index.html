@@ -11,12 +11,16 @@
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:400,700" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
   <link rel="stylesheet" href="css/animate.css">
 
@@ -55,7 +59,7 @@
                   <div class="heading-section ftco-animate text-center">
                     <span class="subheading banner-text">Your present circumstances don't determine where you can go;
                       they merely determine where you start.Your choice make all the diffrence.</span>
-                    <h4 class="m-5"><a href="#" class="btn btn-primary btn-outline-primary px-4 py-3"> Make your
+                    <h4 class="m-5"><a onclick="navigate('/services')" class="btn btn-primary btn-outline-primary px-4 py-3"> Make your
                         choice</a></h4>
                   </div>
 
@@ -73,15 +77,19 @@
       <div class="one-half ftco-animate">
         <div class="overlap">
           <div class="heading-section ftco-animate ">
-            <span class="subheading">Who</span>
-            <h2 class="mb-4">Am I ?</h2>
+            <span class="subheading">About me</span>
+            <!-- <h2 class="mb-4">me</h2> -->
           </div>
           <div>
-            <p style="color: #fff;">I guide people back to themselves.
-              With roots in Ayurveda, yoga psychology, and energy healing, I help growthoriented individuals uncover why
-              they feel stuck — emotionally, mentally, or
-              energetically — and empower them to move forward from a place of clarity and
-              self-trust.
+            <p style="color: #fff;">I’m a guide, space-holder, and intuitive facilitator of healing.
+              Rooted in the wisdom of Ayurveda and Integral Chakra Psychology, I support growth-oriented
+              individuals in reconnecting with their inner truth. As a health coach, I help people identify and
+              release limiting belief patterns, and cultivate healthier, more empowering belief systems.
+              My approach is grounded in radical self-acceptance.
+              When people feel emotionally, mentally, or energetically stuck, I gently guide them to uncover
+              the deeper roots beneath the surface. Whether it’s a blocked pattern, unprocessed emotion, or a
+              disconnection from intuition, we work together to create space for clarity, alignment, and
+              empowered forward movement
             </p>
           </div>
         </div>
@@ -210,8 +218,8 @@
       <div class="container">
         <div class="row justify-content-center mb-5 pb-3">
           <div class="col-md-7 heading-section ftco-animate text-center">
-            <span class="subheading">Discover</span>
-            <h2 class="mb-4">Services</h2>
+            <span class="subheading">Work with me</span>
+            <!-- <h2 class="mb-4">Services</h2> -->
             <p>Step into alignment with your soul’s journey and reclaim your divine clarity.</p>
           </div>
         </div>
@@ -467,9 +475,9 @@
   <script src="js/bootstrap-datepicker.js"></script>
   <script src="js/jquery.timepicker.min.js"></script>
   <script src="js/scrollax.min.js"></script>
-  <script
+  <!-- <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-  <script src="js/google-map.js"></script>
+  <script src="js/google-map.js"></script> -->
   <script src="js/main.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.pkgd.js"></script>
   <script>
@@ -500,13 +508,18 @@
         console.error("Failed to fetch GitHub images", err);
       });
   </script>
-
-
+<script>
+function navigate(path) {
+  history.pushState({}, '', path);
+  // Trigger Angular to handle the navigation — BUT:
+  // this only works if Angular is fully loaded and monitoring the route.
+  window.dispatchEvent(new Event('popstate'));
+}</script>
 </body>
 
 
 <!-- Payment gateways  -->
-<!-- <script async src="https://js.stripe.com/v3/"></script> -->
+<!-- <script async src="https://js.stripe.com/v3/"></> -->
 <script async src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 </html>
