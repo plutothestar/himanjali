@@ -109,25 +109,25 @@
 // Lavender pastel theme stepper form
 .stepper-container {
   font-family: 'Arial', sans-serif;
-  color: #4A235A;
+  color: #d46a4c;
   width: 100%;
   // max-width: 600px;
   // margin: 20px auto;
   padding: 20px;
   border-radius: 12px;
-  background: #E6E6FA;
+  background: #fefcf9;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   .progress-bar-container {
     width: 100%;
     height: 8px;
-    background: #D8BFD8;
+    background: #ffbeac;
     border-radius: 4px;
     overflow: hidden;
 
     .progress-bar {
       height: 100%;
-      background: #9370DB;
+      background: #d46a4c;
       transition: width 0.3s ease;
     }
   }
@@ -157,14 +157,14 @@
         width: 25px;
         height: 25px;
         border-radius: 50%;
-        background: #DDA0DD;
+        background: #ffbeac;
         color: white;
         font-weight: bold;
         margin-bottom: 8px;
       }
 
       &.active .step-number {
-        background: #9370DB;
+        background: #d46a4c;
       }
 
       .step-label {
@@ -215,31 +215,31 @@
       transition: background 0.3s ease;
 
       &:disabled {
-        background: #D8BFD8;
+        background: #ffbeac;
         cursor: not-allowed;
       }
 
       &:nth-child(1) {
-        background: #9370DB;
+        background: #ffbeac;
 
         &:hover:not(:disabled) {
-          background: #7B68EE;
+          background: #ffbeac;
         }
       }
 
       &:nth-child(2) {
-        background: #BA55D3;
+        background: #d46a4c;
 
         &:hover:not(:disabled) {
-          background: #9932CC;
+          background: #ffbeac;
         }
       }
 
       &:nth-child(3) {
-        background: #BA55D3;
+        background: #d46a4c;
 
         &:hover:not(:disabled) {
-          background: #9932CC;
+          background: #ffbeac;
         }
       }
     }

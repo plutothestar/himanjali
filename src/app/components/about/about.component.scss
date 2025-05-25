@@ -54,6 +54,20 @@
     color: white;
     transform: translateY(-2px);
   }
+  .btn {
+    border: 1px solid #c49b63;
+    background: #c49b63;
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    padding: 0.6rem 1.2rem;
+  }
+
+  .btn--primary:hover {
+  background: #ffffff49;
+    color: #676700;
+  }
   .mobile-menu {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
