@@ -1,4 +1,4 @@
-:root{
+:root {
   --coral: '#E79796';
   --sunset: '#FFC98B';
   --sage: '#C6c09C';
@@ -6,15 +6,16 @@
 
 }
 
-.banner{
+.banner {
   height: 100vh;
   filter: brightness(0.8);
 }
-.banner-text{
-  font-size: 3rem!important;
-font-family:  "Satisfy"!important;
-// -webkit-text-fill-color: #000;
--webkit-text-stroke: 0.2px #af8f00;
+
+.banner-text {
+  font-size: 3rem !important;
+  font-family: "Satisfy" !important;
+  // -webkit-text-fill-color: #000;
+  -webkit-text-stroke: 0.2px #af8f00;
 }
 
 
@@ -25,12 +26,12 @@ font-family:  "Satisfy"!important;
   /* flex-box, center image in cell */
   display: -webkit-box;
   display: -webkit-flex;
-  display:         flex;
+  display: flex;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
-          justify-content: center;
+  justify-content: center;
   -webkit-align-items: center;
-          align-items: center;
+  align-items: center;
 }
 
 .carousel-cell img {
@@ -40,29 +41,29 @@ font-family:  "Satisfy"!important;
   /* dim unselected */
   opacity: 0.7;
   -webkit-transform: scale(0.85);
-          transform: scale(0.85);
+  transform: scale(0.85);
   -webkit-filter: blur(5px);
-          filter: blur(5px);
+  filter: blur(5px);
   -webkit-transition: opacity 0.3s, -webkit-transform 0.3s, transform 0.3s, -webkit-filter 0.3s, filter 0.3s;
-          transition: opacity 0.3s, transform 0.3s, filter 0.3s;
+  transition: opacity 0.3s, transform 0.3s, filter 0.3s;
 }
 
 /* brighten selected image */
 .carousel-cell.is-selected img {
   opacity: 1;
   -webkit-transform: scale(1);
-          transform: scale(1);
+  transform: scale(1);
   -webkit-filter: none;
-          filter: none;
+  filter: none;
 }
 
-@media screen and ( min-width: 768px ) {
+@media screen and (min-width: 768px) {
   .carousel-cell {
     height: 400px;
   }
 }
 
-@media screen and ( min-width: 960px ) {
+@media screen and (min-width: 960px) {
   .carousel-cell {
     width: 60%;
   }
@@ -75,20 +76,30 @@ font-family:  "Satisfy"!important;
   background: transparent;
   opacity: 0.6;
 }
+
 .flickity-prev-next-button:hover {
   background: transparent;
   opacity: 1;
 }
+
 /* arrow color */
 .flickity-prev-next-button .arrow {
   fill: white;
 }
+
 .flickity-prev-next-button.no-svg {
   color: white;
 }
+
 /* closer to edge */
-.flickity-prev-next-button.previous { left: 0; }
-.flickity-prev-next-button.next { right: 0; }
+.flickity-prev-next-button.previous {
+  left: 0;
+}
+
+.flickity-prev-next-button.next {
+  right: 0;
+}
+
 /* hide disabled button */
 .flickity-prev-next-button:disabled {
   display: none;
