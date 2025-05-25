@@ -141,6 +141,7 @@
   text-align: center;
   // background: rgba(0, 0, 0, 0.1);
     padding: 1rem;
+    // font-family: 'Assistant';
 }
 
 /* About Section */
@@ -155,7 +156,7 @@
   padding: 8% 13% 8% 5%;
   background-size: cover;
   background-position: center;
-  height: auto;
+  min-height: 300px;
 }
 
 .about__text {
@@ -190,7 +191,7 @@
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
-  width: 30%;
+  width:30%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -251,10 +252,31 @@
 }
 
 .hero__content h1 {
-  font-family: 'Great Vibes', cursive;
-  color: #ffb63b;
-  font-size: 2rem;
+  // font-family: 'The Seasons', cursive;
+  color: #ffa947;
+  font-size: 2.3rem;
   max-width: 800px;
   margin-bottom: 1.5rem;
 }
 
+  @media (max-width: 768px) {
+    .about {
+      flex-direction: column;
+    }
+    .services__grid{
+      flex-direction: column;
+    }
+    .service-card{
+
+      width: 100%;
+    }
+    .about__image, .about__text {
+      width: 100%;
+      padding: 0;
+    }
+
+    .overlay {
+      margin-left: 0;
+      padding: 1.5rem;
+    }
+  }
