@@ -30,6 +30,15 @@
         </p> -->
       </div>
     </div>
+
+    <div class="gallery mb-5">
+      <h1>Certifications</h1>
+      <div class="image-grid">
+        <div class="image-item" *ngFor="let img of images">
+          <img [src]="img" alt="Gallery image" (click)="openLightbox(img)">
+        </div>
+      </div>
+    </div>
     <!-- Hero Section -->
     <div class="hero-section">
       <div class="hero-content">
@@ -38,4 +47,11 @@
       </div>
     </div>
 
+  </div>
+
+
+  <!-- Lightbox -->
+  <div class="lightbox" *ngIf="lightboxOpen" (click)="closeLightbox()">
+    <span class="close" (click)="closeLightbox()">&times;</span>
+    <img [src]="currentImage" class="lightbox-content">
   </div>
