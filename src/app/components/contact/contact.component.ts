@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 @Component({
   selector: 'app-contact',
   imports: [],
@@ -7,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrl: './contact.component.scss'
 })
 export class ContactComponent {
+  nextUrl = `${window.location.origin}/confirmations`;
+  constructor( ) {
+    this.nextUrl = `${window.location.origin}/confirmations`;
+  }
+
 
 }

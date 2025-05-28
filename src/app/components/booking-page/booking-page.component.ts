@@ -7,9 +7,10 @@ import { environment } from '../../../environment';
 import { GoogleCalendarService } from '../../services/google-calendar.service';
 import { SafeUrlPipe } from '../../shared/safe-url.pipe';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-booking-page',
-  imports: [CommonModule, MatCalendar, MatNativeDateModule, SafeUrlPipe, ReactiveFormsModule],
+  imports: [CommonModule, MatCalendar, MatNativeDateModule, ReactiveFormsModule],
   templateUrl: './booking-page.component.html',
   styleUrl: './booking-page.component.scss'
 })
@@ -33,8 +34,9 @@ export class BookingPageComponent implements OnInit {
   selectedSlot: any = null;
   calendarUrl: string = `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(environment.availablityCalender)}&ctz=Asia%2FKolkata`;
   appointmentForm!: FormGroup;
+  item: any;
 
-  constructor(private calender: GoogleCalendarService, private fb: FormBuilder) { }
+  constructor(private calender: GoogleCalendarService, private fb: FormBuilder,private router:Router) { }
 
   onDateSelected(event: Date): void {
     this.selectedDate = event;
@@ -49,6 +51,8 @@ export class BookingPageComponent implements OnInit {
     this.appointmentForm.get('step1.selectedSlot')?.updateValueAndValidity();
   }
   async ngOnInit(): Promise<void> {
+    const data = sessionStorage.getItem('selectedItem');
+    if (data) this.item = JSON.parse(data);
     this.appointmentForm = this.fb.group({
       step1: this.fb.group({
         selectedSlot: ['', Validators.required]
@@ -199,47 +203,47 @@ export class BookingPageComponent implements OnInit {
     return slots;
   }
 
-  createEvent() {
+  createEvent(razorPresponse:any) {
+    const startDate = this.selectedSlot.start instanceof Date ? this.selectedSlot.start : new Date(this.selectedSlot.start);
+    const endDate = this.selectedSlot.end instanceof Date ? this.selectedSlot.end : new Date(this.selectedSlot.end);
 
-      const startDate = this.selectedSlot.start instanceof Date ? this.selectedSlot.start : new Date(this.selectedSlot.start);
-      const endDate = this.selectedSlot.end instanceof Date ? this.selectedSlot.end : new Date(this.selectedSlot.end);
+    const event = {
+      summary: `Scheduled Meeting with ${this.appointmentForm.get('step2.name')?.value}`,
+      location: 'Google Meet',
+      description: `Your patment refrence no:${razorPresponse.razorpay_payment_id}\n\n ${this.appointmentForm.get('step3.description')?.value}\n\nContact Details:\nEmail - ${this.appointmentForm.get('step2.email')?.value}\nPhone No - ${this.appointmentForm.get('step2.contact')?.value}`,
+      start: { dateTime: startDate.toISOString(), timeZone: 'Asia/Kolkata' },
+      end: { dateTime: endDate.toISOString(), timeZone: 'Asia/Kolkata' },
+      attendees: [{ email: this.appointmentForm.get('step2.email')?.value }],
+      conferenceData: {
+        createRequest: {
+          requestId: new Date().getTime().toString(),
+          conferenceSolutionKey: { type: "hangoutsMeet" }
+        }
+      },
+      reminders: {
+        useDefault: false,
+        overrides: [{ method: "email", minutes: 30 }]
+      },
+      conferenceDataVersion: 1,
+      sendUpdates: "all",
+      CALENDAR_ID: environment.appointmentCalender,
+    };
 
-      const event = {
-        summary: `Scheduled Meeting with ${this.appointmentForm.get('step2.name')?.value}`,
-        location: 'Google Meet',
-        description: `${this.appointmentForm.get('step3.description')?.value}\n\nContact Details:\nEmail - ${this.appointmentForm.get('step2.email')?.value}\nPhone No - ${this.appointmentForm.get('step2.contact')?.value}`,
-        start: { dateTime: startDate.toISOString(), timeZone: 'Asia/Kolkata' },
-        end: { dateTime: endDate.toISOString(), timeZone: 'Asia/Kolkata' },
-        attendees: [{ email: this.appointmentForm.get('step2.email')?.value }],
-        conferenceData: {
-          createRequest: {
-            requestId: new Date().getTime().toString(),
-            conferenceSolutionKey: { type: "hangoutsMeet" }
-          }
-        },
-        reminders: {
-          useDefault: false,
-          overrides: [{ method: "email", minutes: 30 }]
-        },
-        conferenceDataVersion: 1,
-        sendUpdates: "all",
-        CALENDAR_ID:environment.appointmentCalender,
-      };
+    this.calender.addCalendarEvent(event).subscribe({
+      next: (data) => {
+        console.log('Event Created:', data);
+        console.log('Google Meet Link:', data?.conferenceData?.entryPoints[0]?.uri);
+        this.router.navigate(['/confirmations']);
+      },
+      error: (error) => console.error('Error:', error)
+    });
+  }
 
-      this.calender.addCalendarEvent(event).subscribe({
-        next: (data) => {
-          console.log('Event Created:', data);
-          console.log('Google Meet Link:', data?.conferenceData?.entryPoints[0]?.uri);
-        },
-        error: (error) => console.error('Error:', error)
-      });
-    }
-
-    inputValue: string = '100';
+  inputValue: string = '100';
 
   updateInputValue(event: Event): void {
     const target = event.target as HTMLInputElement;
-    this.inputValue = target.value;
+    this.inputValue = this.item.price;
   }
 
   payWithRazorpay(): void {
@@ -248,22 +252,23 @@ export class BookingPageComponent implements OnInit {
       return;
     }
 
-    const finalRazorPayValue = Number(this.inputValue) * 100;
-
+    const finalRazorPayValue = Number(this.item.price) * 100;
+// debugger
     const options: any = {
       key: environment.RazorpayKey,
       amount: finalRazorPayValue,
       name: 'Himanjali Dimri',
       description: 'Himanjali Dimri appointment',
       image: 'logo.png',
-      handler: function (response: any) {
+      handler: (response: any) => {
         alert('Payment Id ' + response.razorpay_payment_id + ' : Payment successful');
+        this.createEvent(response);
         console.log(response);
       },
       prefill: {
         name: this.appointmentForm.get('step2.name')?.value,
         email: this.appointmentForm.get('step2.email')?.value,
-        contact: this.appointmentForm.get('step2.contact')?.value,
+        contact: `+91${this.appointmentForm.get('step2.contact')?.value}`,
       },
       notes: {
         address: this.appointmentForm.get('step2.description')?.value
@@ -277,6 +282,6 @@ export class BookingPageComponent implements OnInit {
     rzp.open();
   }
 
-  }
+}
 
 

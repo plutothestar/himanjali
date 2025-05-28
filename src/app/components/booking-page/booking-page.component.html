@@ -15,9 +15,15 @@
 
 <div class="container p-0 mb-5">
   <div class="appointments-container row m-3 g-4">
-    <div class="appointments-right col-md-4 ">
-      <iframe [src]="calendarUrl | safeUrl" style="width: 100%; height: 100%; border: 0;" frameborder="0"
-        scrolling="no"></iframe>
+    <div class="appointments-right col-md-4 m-2" >
+      <!-- <iframe [src]="calendarUrl | safeUrl" style="width: 100%; height: 100%; border: 0;" frameborder="0"
+        scrolling="no"></iframe> -->
+        <div *ngIf="item" class="booking-summary-card">
+          <h3>Booking: {{ item.title }}</h3>
+          <p><strong>Description:</strong> {{ item.description }}</p>
+          <p><strong>Duration:</strong> {{ item.duration }}</p>
+          <p><strong>Price:</strong> ₹{{ item.price }}</p>
+        </div>
     </div>
 
     <div class="appointments-left col-md-8">
@@ -110,9 +116,9 @@
           <button (click)="previousStep()" [disabled]="currentStep === 0">Previous</button>
           <button (click)="nextStep()" *ngIf="currentStep !== steps.length - 1; else payButton">Next</button>
           <ng-template #payButton>
-            <button (click)="createEvent()">Book</button>
+            <!-- <button (click)="createEvent()">Book</button> -->
            <!-- <button (click)="payWithStripe()">Pay ₹100</button> -->
-           <button (click)="payWithRazorpay()">Pay ₹100</button>
+           <button (click)="payWithRazorpay()">Pay ₹{{item.price}}</button>
           </ng-template>
         </div>
       </div>
