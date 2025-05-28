@@ -261,7 +261,7 @@ export class BookingPageComponent implements OnInit {
       description: 'Himanjali Dimri appointment',
       image: 'logo.png',
       handler: (response: any) => {
-        alert('Payment Id ' + response.razorpay_payment_id + ' : Payment successful');
+        //alert('Payment Id ' + response.razorpay_payment_id + ' : Payment successful');
         this.createEvent(response);
         console.log(response);
       },
