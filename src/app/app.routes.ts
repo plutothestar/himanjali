@@ -1,3 +1,4 @@
+import { ConfirmationPageComponent } from './components/confirmation-page/confirmation-page.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -12,7 +13,12 @@ export const routes: Routes = [{
 }, {
     path: "bookings",
     component: BookingPageComponent
-}, {
+},
+{
+    path: "confirmations",
+    component: ConfirmationPageComponent
+},
+{
     path: "services",
     component: ServiceComponent
 },
