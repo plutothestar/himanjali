@@ -1,57 +1,85 @@
 <div class="container  mt-5 py-4">
 
-    <!-- About Content -->
-    <div class="about-section">
-      <h1 class="about-name">About Me</h1>
+  <!-- About Content -->
+  <div class="about-section row">
+    <div class="col-md-8"><h1 class="about-name">About Me</h1>
       <div class="about-description">
         <p class="mb-4">
-          I’m a guide, space-holder, and intuitive facilitator of healing.
-        </p>
-        <p class="mb-4">
-          Rooted in the wisdom of Ayurveda and Integral Chakra Psychology, I support growth-oriented
-          individuals in reconnecting with their inner truth. As a health coach, I help people identify and
-          release limiting belief patterns, and cultivate healthier, more empowering belief systems.
-        </p>
-        <p class="mb-4">
-          My approach is grounded in radical self-acceptance.
-        </p>
-        <p class="mb-4">
-          When people feel emotionally, mentally, or energetically stuck, I gently guide them to uncover
-          the deeper roots beneath the surface. Whether it’s a blocked pattern, unprocessed emotion, or a
-          disconnection from intuition, we work together to create space for clarity, alignment, and
-          empowered forward movement.
 
         </p>
-        <!-- <p>
-          Today, I hold space for others walking their own paths — blending ancient
-          wisdom, intuitive coaching, and energy work to support holistic, lasting growth.
-          You already hold the answers.
-          I simply help you remember.
-        </p> -->
-      </div>
-    </div>
+        <p class="mb-4">
+          My journey into healing didn’t begin with textbooks, it began in my own body. I have lived with complex PTSD,
+          and have battled many psychosomatic manifestations that included ,but were not limited to an autoimmune disorder
+          , acne breakouts and burnout. It was through deep inner work, yoga , ayurvedic medicines and spiritual practices
+          that I slowly found my way back to myself.
+        </p>
+        <p class="mb-4">
 
-    <div class="gallery mb-5">
-      <h1>Certifications</h1>
-      <div class="image-grid">
-        <div class="image-item" *ngFor="let img of images">
-          <img [src]="img" alt="Gallery image" (click)="openLightbox(img)">
-        </div>
-      </div>
-    </div>
-    <!-- Hero Section -->
-    <div class="hero-section">
-      <div class="hero-content">
-        <h2 class="hero-title">Discover Your Inner Strength</h2>
-        <a  class="btn btn--primary" routerLink="/services">View services</a>
-      </div>
-    </div>
+          This is why I don’t believe in a one-size-fits-all method. Real healing is as unique as the person seeking it.
+          Sometimes, it's a single word, a moment of presence, a revisit to an old memory, or a small action that brings
+          you back to yourself after years spent in survival mode.
+        </p>
+        <p class="mb-4">
+          My academic background in BSc (Research) in Biotechnology and an MSc in Ayurveda Biology gave me structure and a
+          scientific lens.. But it was self-inquiry, lived experience, and the integration of various healing modalities
+          that truly transformed me.
+        </p>
+        <p>
+          Everything shifted in 2021 when I began working with yoga psychotherapist Ilashrei Anand. At a time when I had
+          almost given up on healing, she introduced me to the profound depth of yoga psychology and met me with deep
+          compassion. Her gentleness and intuitive presence helped me soften and become open to the possibility of
+          healing.
+        </p>
+        <p>
+          It wasn’t easy. I struggled. I failed at many things, stuck in a freeze state, unable to fully show up, and
+          feeling like I was constantly disappointing everyone around me.
+
+          Over the past two years, I began taking my healing seriously. I held myself accountable , not out of shame, but
+          from a place of love. That’s when things slowly began to shift. Gently, with time, I began to reclaim my life.
+
+          Today, my work is deeply rooted in this lived experience. I support others on their healing journeys by weaving
+          together scientific understanding, yogic wisdom, and spiritual inquiry. I collaborate with medical doctors,
+          psychologists, and Ayurvedic Vaidyas to offer an integrative approach that honors the mind, body, and soul.
+
+          Healing isn’t linear. It’s layered, deeply personal, and often messy. But it is possible. And if you’re reading
+          this, I want you to know: it’s never too late to begin again. </p>
+        <p>
+          Over the past two years, I began taking my healing seriously. I held myself accountable , not out of shame, but
+          from a place of love. That’s when things slowly began to shift. Gently, with time, I began to reclaim my life.
+        </p>
+        <p>
+          Today, my work is deeply rooted in this lived experience. I support others on their healing journeys by weaving
+          together scientific understanding, yogic wisdom, and spiritual inquiry. I collaborate with medical doctors,
+          psychologists, and Ayurvedic Vaidyas to offer an integrative approach that honors the mind, body, and soul. </p>
+        <p>
+          Healing isn’t linear. It’s layered, deeply personal, and often messy. But it is possible. And if you’re reading
+          this, I want you to know: it’s never too late to begin again. </p>
+      </div></div>
+    <div class="col-md-4"><img src="images/author.jpeg" class="w-100" alt=""></div>
 
   </div>
 
-
-  <!-- Lightbox -->
-  <div class="lightbox" *ngIf="lightboxOpen" (click)="closeLightbox()">
-    <span class="close" (click)="closeLightbox()">&times;</span>
-    <img [src]="currentImage" class="lightbox-content">
+  <div class="gallery mb-5">
+    <h1>Certifications</h1>
+    <div class="image-grid">
+      <div class="image-item" *ngFor="let img of images">
+        <img [src]="img" alt="Gallery image" (click)="openLightbox(img)">
+      </div>
+    </div>
   </div>
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h2 class="hero-title">Discover Your Inner Strength</h2>
+      <a class="btn btn--primary" routerLink="/services">View services</a>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- Lightbox -->
+<div class="lightbox" *ngIf="lightboxOpen" (click)="closeLightbox()">
+  <span class="close" (click)="closeLightbox()">&times;</span>
+  <img [src]="currentImage" class="lightbox-content">
+</div>

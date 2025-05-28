@@ -112,7 +112,7 @@
 /* Hero Section */
 .hero {
   // background-image: url('images/crescent.jpg');
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   position: relative;
   height: 100vh;
@@ -124,7 +124,7 @@
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  // background: rgba(0, 0, 0, 0.5);
 }
 
 .hero__content {
@@ -253,7 +253,7 @@
 
 .hero__content h1 {
   // font-family: 'The Seasons', cursive;
-  color: #ffa947;
+  color: #f3b268;
   font-size: 2.3rem;
   max-width: 800px;
   margin-bottom: 1.5rem;
