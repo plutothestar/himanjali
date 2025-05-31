@@ -3,6 +3,7 @@ import { AfterViewInit, Component } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
 import { BlogMeta } from '../../shared/blog-meta';
 import { Router, RouterLink } from '@angular/router';
+import { CurrencyService } from '../../services/currency.service';
 declare var Flickity: any;
 @Component({
   selector: 'app-home',
@@ -12,9 +13,13 @@ declare var Flickity: any;
 })
 export class HomeComponent implements AfterViewInit {
   private readonly API_URL = 'https://api.github.com/repos/plutothestar/himacms/contents/testimonialImages';
-
+  product = {
+    title: 'Yogic Coaching for Psychosomatic Healing',
+    description: '1:1 Video call session ',
+    duration: '60 minutes',
+    price: 2500
+  };
   blogs: BlogMeta[] = [];
-
   constructor(private blogService: BlogService, private router: Router) { }
 
   ngOnInit(): void {
@@ -48,13 +53,8 @@ export class HomeComponent implements AfterViewInit {
       .catch(err => console.error('Failed to fetch GitHub images', err));
   }
   bookItem() {
-    const item = {
-      title: 'Root Cause Clarity Session',
-      description: 'A 60-minute 1:1 session to identify root blocks, realign with your core self, and create a personalized healing plan for clarity, grounding, and self-trust',
-      duration: '60 mins',
-      price: 50
-    };
-    sessionStorage.setItem('selectedItem', JSON.stringify(item));
+    
+    sessionStorage.setItem('selectedItem', JSON.stringify(this.product));
     this.router.navigate(['/bookings']);
   }
 }

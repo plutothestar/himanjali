@@ -1,9 +1,10 @@
 <!-- Banner Section -->
-<section class="hero" style="background-image: url(images/beigeBackground.jpg);">
+<section class="hero" style="background-image: url(images/hero_bg.jpeg);">
   <div class="hero__overlay"></div>
   <div class="hero__content container">
     <h1 class="hero__quote">Your present circumstances don’t determine where you can go; they merely determine where you
       start. Your choices make all the difference.</h1>
+      <p>- Nido Qubein </p>
     <a routerLink="/services" class="btn btn--primary">Make your choice</a>
   </div>
 </section>
@@ -14,7 +15,7 @@
   <div class="about__text">
     <div class="overlay">
       <h2 class="section-title text-light">About Me</h2>
-      <p>II’m a guide, space-holder, and intuitive facilitator of healing.
+      <p>I’m a guide, space-holder, and intuitive facilitator of healing.
         Rooted in the wisdom of Ayurveda and Integral Chakra Psychology, I support growth-oriented
         individuals in reconnecting with their inner truth. As a health coach, I help people identify and
         release limiting belief patterns, and cultivate healthier, more empowering belief systems.
@@ -37,9 +38,8 @@
     <div class="service-card">
       <div class="service-card__img" style="background-image: url('images/service1.jpg');"></div>
       <div class="service-card__content">
-        <h3>Root Cause Clarity Session</h3>
-        <p>A 60-minute 1:1 session to identify root blocks, realign with your core self, and create a personalized
-          healing plan for clarity, grounding, and self-trust.</p>
+        <h3>Yogic Coaching for Psychosomatic Healing</h3>
+        <p>A 60-minute 1:1 session which is designed for those at a turning point — feeling stuck in emotional patterns, creative blocks, or spiritual fatigue. Through a mind-body-spirit approach rooted in yogic philosophy, we’ll explore what’s holding you back and help you move forward with clarity, grounding, and self-trust.</p>
         <div class="service-card__footer">
           <a routerLink="/services">Read more</a>
           <button   (click)="bookItem()" class="btn btn--outline">Book a session</button>
@@ -49,9 +49,9 @@
     <div class="service-card">
       <div class="service-card__img" style="background-image: url('images/service2.jpg');"></div>
       <div class="service-card__content">
-        <h3>Sacred Reset</h3>
-        <p>A monthly 1:1 healing container offering personalized support, energy work, and spiritual tools to restore
-          nervous system balance, clarity, and deep self-trust.</p>
+        <h3>Mind-Body Reset: 4-Week Burnout & Emotional Release Program
+        </h3>
+        <p>A 4-week 1:1 program designed to release burnout and restore balance through chakra healing, Ayurvedic guidance, nervous system support, yoga, and personalized tools — plus ongoing support and a bonus tarot reading.</p>
         <div class="service-card__footer">
           <a routerLink="/services">Read more</a>
           <a routerLink="/contact" class="btn btn--outline">Work with me</a>
@@ -61,7 +61,7 @@
   </div>
 </section>
 
-<section class="blogs container mt-5" *ngIf="blogs.length">
+<!-- <section class="blogs container mt-5" *ngIf="blogs.length">
   <h2 class="section-title text-center">Recent from Blog</h2>
   <div class="blogs__grid">
     <div class="blog-card" *ngFor="let blog of blogs | slice:0:3"
@@ -74,7 +74,7 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->
 
 
 <!-- Testimonials Section -->

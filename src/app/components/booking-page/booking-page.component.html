@@ -22,7 +22,8 @@
           <h3>Booking: {{ item.title }}</h3>
           <p><strong>Description:</strong> {{ item.description }}</p>
           <p><strong>Duration:</strong> {{ item.duration }}</p>
-          <p><strong>Price:</strong> ₹{{ item.price }}</p>
+          <!-- <p><strong>Energy Exchange:</strong> {{ }}</p> -->
+          <p><strong>Energy Exchange:</strong> {{ item.price | currency:currency}}</p>
         </div>
     </div>
 

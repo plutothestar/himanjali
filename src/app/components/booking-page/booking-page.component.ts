@@ -8,6 +8,7 @@ import { GoogleCalendarService } from '../../services/google-calendar.service';
 import { SafeUrlPipe } from '../../shared/safe-url.pipe';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CurrencyService } from '../../services/currency.service';
 @Component({
   selector: 'app-booking-page',
   imports: [CommonModule, MatCalendar, MatNativeDateModule, ReactiveFormsModule],
@@ -35,8 +36,11 @@ export class BookingPageComponent implements OnInit {
   calendarUrl: string = `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(environment.availablityCalender)}&ctz=Asia%2FKolkata`;
   appointmentForm!: FormGroup;
   item: any;
-
-  constructor(private calender: GoogleCalendarService, private fb: FormBuilder,private router:Router) { }
+  currencyCode: any;
+  priceINR :any;
+  displayPrice: number = 0;
+  currency: string = 'INR';
+  constructor(private calender: GoogleCalendarService, private fb: FormBuilder,private router:Router,private currencyService: CurrencyService) { }
 
   onDateSelected(event: Date): void {
     this.selectedDate = event;
@@ -51,6 +55,17 @@ export class BookingPageComponent implements OnInit {
     this.appointmentForm.get('step1.selectedSlot')?.updateValueAndValidity();
   }
   async ngOnInit(): Promise<void> {
+    this.currencyService.getUserCountry().subscribe(countryCode => {
+      if (countryCode === 'IN') {
+        // this.displayPrice = this.priceINR;
+        this.currency = 'INR';
+      } else {
+        this.currencyService.getExchangeRate().subscribe(rate => {
+          // this.displayPrice = this.priceINR * rate;
+          this.currency = 'GBP';
+        });
+      }
+    });
     const data = sessionStorage.getItem('selectedItem');
     if (data) this.item = JSON.parse(data);
     this.appointmentForm = this.fb.group({
