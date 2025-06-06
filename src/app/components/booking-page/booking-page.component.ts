@@ -267,8 +267,9 @@ export class BookingPageComponent implements OnInit {
       return;
     }
 
-    const finalRazorPayValue = Number(this.item.price) * 100;
-// debugger
+    // const finalRazorPayValue = Number(this.item.price) * 100;
+    const finalRazorPayValue = 100
+debugger
     const options: any = {
       key: environment.RazorpayKey,
       amount: finalRazorPayValue,
