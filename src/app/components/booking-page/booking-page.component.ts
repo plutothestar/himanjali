@@ -37,10 +37,10 @@ export class BookingPageComponent implements OnInit {
   appointmentForm!: FormGroup;
   item: any;
   currencyCode: any;
-  priceINR :any;
+  priceINR: any;
   displayPrice: number = 0;
   currency: string = 'INR';
-  constructor(private calender: GoogleCalendarService, private fb: FormBuilder,private router:Router,private currencyService: CurrencyService) { }
+  constructor(private calender: GoogleCalendarService, private fb: FormBuilder, private router: Router, private currencyService: CurrencyService) { }
 
   onDateSelected(event: Date): void {
     this.selectedDate = event;
@@ -218,7 +218,7 @@ export class BookingPageComponent implements OnInit {
     return slots;
   }
 
-  createEvent(razorPresponse:any) {
+  createEvent(razorPresponse: any) {
     const startDate = this.selectedSlot.start instanceof Date ? this.selectedSlot.start : new Date(this.selectedSlot.start);
     const endDate = this.selectedSlot.end instanceof Date ? this.selectedSlot.end : new Date(this.selectedSlot.end);
 
@@ -267,9 +267,7 @@ export class BookingPageComponent implements OnInit {
       return;
     }
 
-    // const finalRazorPayValue = Number(this.item.price) * 100;
-    const finalRazorPayValue = 100
-debugger
+    const finalRazorPayValue = Number(this.item.price) * 100;
     const options: any = {
       key: environment.RazorpayKey,
       amount: finalRazorPayValue,
