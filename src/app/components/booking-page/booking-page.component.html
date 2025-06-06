@@ -48,10 +48,10 @@
             <!-- Step 1: Select Slot -->
             <div *ngIf="currentStep === 0">
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-5">
                   <mat-calendar [(selected)]="selectedDate" (selectedChange)="onDateSelected($event)"></mat-calendar>
                 </div>
-                <div class="col-md-8 p-3">
+                <div class="col-md-7 p-3">
                   <small>Select your preferred slot</small>
                   <div class="slots-wrapper" *ngIf="finalAvailableSlots.length > 0; else noSlots">
                     <div class="step" *ngFor="let slot of finalAvailableSlots; let i = index">
@@ -113,15 +113,24 @@
         </div>
 
         <!-- Navigation Buttons -->
-        <div class="navigation-buttons">
-          <button (click)="previousStep()" [disabled]="currentStep === 0">Previous</button>
-          <button (click)="nextStep()" *ngIf="currentStep !== steps.length - 1; else payButton">Next</button>
-          <ng-template #payButton>
-            <!-- <button (click)="createEvent()">Book</button> -->
-           <!-- <button (click)="payWithStripe()">Pay ₹100</button> -->
-           <button (click)="payWithRazorpay()">Pay ₹{{item.price}}</button>
-          </ng-template>
+        <div class="navigation-buttons d-flex justify-content-between w-100">
+          <div>
+            <button class="btn btn--outline" (click)="previousStep()" *ngIf="currentStep !== 0">
+              Previous
+            </button>
+          </div>
+
+          <div class="ms-auto">
+            <ng-container *ngIf="currentStep !== steps.length - 1; else payButton">
+              <button class="btn btn--primary" [disabled]="!selectedSlot" (click)="nextStep()">Next</button>
+            </ng-container>
+
+            <ng-template #payButton>
+              <button class="btn btn-success" (click)="payWithRazorpay()">Pay ₹{{item.price}}</button>
+            </ng-template>
+          </div>
         </div>
+
       </div>
     </div>
 
