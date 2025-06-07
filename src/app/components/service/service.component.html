@@ -64,7 +64,7 @@
 
           <div class="mt-auto">
             <p class="fw-bold fs-5 mb-2">Book a session:</p>
-            <p class="mb-3" >{{displayPrice | currency:currency}}</p>
+            <p class="mb-3" >{{product.price| currency:product.currency}}</p>
             <button class="btn btn-primary w-100" (click)="bookItem()">Book Psychosomatic Healing Session</button>
           </div>
         </div>

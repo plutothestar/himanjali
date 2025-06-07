@@ -13,12 +13,6 @@ declare var Flickity: any;
 })
 export class HomeComponent implements AfterViewInit {
   private readonly API_URL = 'https://api.github.com/repos/plutothestar/himacms/contents/testimonialImages';
-  product = {
-    title: 'Yogic Coaching for Psychosomatic Healing',
-    description: '1:1 Video call session ',
-    duration: '60 minutes',
-    price: 2500
-  };
   blogs: BlogMeta[] = [];
   constructor(private blogService: BlogService, private router: Router) { }
 
@@ -53,8 +47,6 @@ export class HomeComponent implements AfterViewInit {
       .catch(err => console.error('Failed to fetch GitHub images', err));
   }
   bookItem() {
-    
-    sessionStorage.setItem('selectedItem', JSON.stringify(this.product));
     this.router.navigate(['/bookings']);
   }
 }
