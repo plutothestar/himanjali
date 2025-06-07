@@ -52,7 +52,7 @@
                   <mat-calendar [(selected)]="selectedDate" (selectedChange)="onDateSelected($event)"></mat-calendar>
                 </div>
                 <div class="col-md-7 p-3">
-                  <small>Select your preferred slot</small>
+                  <small>Select your preferred slot </small><small *ngIf="finalAvailableSlots.length > 0">for {{selectedDate| date}}</small>
                   <div class="slots-wrapper" *ngIf="finalAvailableSlots.length > 0; else noSlots">
                     <div class="step" *ngFor="let slot of finalAvailableSlots; let i = index">
                       <button class="slot-button" [class.active]="selectedSlot === slot" (click)="selectSlot(slot)">
@@ -61,7 +61,7 @@
                     </div>
                   </div>
                   <ng-template #noSlots>
-                    <p>No available time slots.</p>
+                    <p>No available time slots choose another date.</p>
                   </ng-template>
                   <div
                     *ngIf="appointmentForm.get('step1.selectedSlot')?.touched && appointmentForm.get('step1.selectedSlot')?.invalid"
