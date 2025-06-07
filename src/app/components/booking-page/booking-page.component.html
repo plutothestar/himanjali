@@ -1,30 +1,32 @@
-<div class="container  p-0" style="margin-top: 100px;">
-  <div class="row mt-5  text-center">
+<div class="container p-0" style="margin-top: 100px">
+  <div class="row mt-5 text-center">
     <div class="col-md-12">
       <h1 class="appointments-title">Discover inner harmony</h1>
     </div>
     <div class="col-md-12">
       <p class="appointments-description">
-        Begin your journey to transformation and renewal. Embrace the
-        power of self-discovery and unlock your true potential.
+        Begin your journey to transformation and renewal. Embrace the power of
+        self-discovery and unlock your true potential.
       </p>
     </div>
   </div>
 </div>
 
-
 <div class="container p-0 mb-5">
   <div class="appointments-container row m-3 g-4">
-    <div class="appointments-right col-md-4 m-2" >
+    <div class="appointments-right col-md-4 m-2">
       <!-- <iframe [src]="calendarUrl | safeUrl" style="width: 100%; height: 100%; border: 0;" frameborder="0"
         scrolling="no"></iframe> -->
-        <div *ngIf="item" class="booking-summary-card">
-          <h3>Booking: {{ item.title }}</h3>
-          <p><strong>Description:</strong> {{ item.description }}</p>
-          <p><strong>Duration:</strong> {{ item.duration }}</p>
-          <!-- <p><strong>Energy Exchange:</strong> {{ }}</p> -->
-          <p><strong>Energy Exchange:</strong> {{ item.price | currency:currency}}</p>
-        </div>
+      <div *ngIf="product" class="booking-summary-card">
+        <h3>Booking: {{ product.title }}</h3>
+        <p><strong>Description:</strong> {{ product.description }}</p>
+        <p><strong>Duration:</strong> {{ product.duration }}</p>
+        <!-- <p><strong>Energy Exchange:</strong> {{ }}</p> -->
+        <p>
+          <strong>Energy Exchange:</strong>
+          {{ product.price | currency : product.currency }}
+        </p>
+      </div>
     </div>
 
     <div class="appointments-left col-md-8">
@@ -36,7 +38,11 @@
 
         <!-- Steps Indicator -->
         <div class="steps-indicator">
-          <div class="step" *ngFor="let step of steps; let i = index" [class.active]="i <= currentStep">
+          <div
+            class="step"
+            *ngFor="let step of steps; let i = index"
+            [class.active]="i <= currentStep"
+          >
             <span class="step-number">{{ i + 1 }}</span>
             <span class="step-label">{{ step.label }}</span>
           </div>
@@ -49,14 +55,34 @@
             <div *ngIf="currentStep === 0">
               <div class="row">
                 <div class="col-md-5">
-                  <mat-calendar [(selected)]="selectedDate" (selectedChange)="onDateSelected($event)"></mat-calendar>
+                  <mat-calendar
+                    [dateFilter]="dateFilter"
+                    [(selected)]="selectedDate"
+                    (selectedChange)="onDateSelected($event)"
+                  ></mat-calendar>
                 </div>
                 <div class="col-md-7 p-3">
-                  <small>Select your preferred slot </small><small *ngIf="finalAvailableSlots.length > 0">for {{selectedDate| date}}</small>
-                  <div class="slots-wrapper" *ngIf="finalAvailableSlots.length > 0; else noSlots">
-                    <div class="step" *ngFor="let slot of finalAvailableSlots; let i = index">
-                      <button class="slot-button" [class.active]="selectedSlot === slot" (click)="selectSlot(slot)">
-                        <span class="text">{{ slot.start | date:'HH:mm aa' }} - {{ slot.end | date:'HH:mm aa' }}</span>
+                  <small>Select your preferred slot </small
+                  ><small *ngIf="finalAvailableSlots.length > 0"
+                    >for {{ selectedDate | date }}</small
+                  >
+                  <div
+                    class="slots-wrapper"
+                    *ngIf="finalAvailableSlots.length > 0; else noSlots"
+                  >
+                    <div
+                      class="step"
+                      *ngFor="let slot of finalAvailableSlots; let i = index"
+                    >
+                      <button
+                        class="slot-button"
+                        [class.active]="selectedSlot === slot"
+                        (click)="selectSlot(slot)"
+                      >
+                        <span class="text"
+                          >{{ slot.start | date : "HH:mm aa" }} -
+                          {{ slot.end | date : "HH:mm aa" }}</span
+                        >
                       </button>
                     </div>
                   </div>
@@ -64,8 +90,14 @@
                     <p>No available time slots choose another date.</p>
                   </ng-template>
                   <div
-                    *ngIf="appointmentForm.get('step1.selectedSlot')?.touched && appointmentForm.get('step1.selectedSlot')?.invalid"
-                    class="error">Please select a slot</div>
+                    *ngIf="
+                      appointmentForm.get('step1.selectedSlot')?.touched &&
+                      appointmentForm.get('step1.selectedSlot')?.invalid
+                    "
+                    class="error"
+                  >
+                    Please select a slot
+                  </div>
                 </div>
               </div>
             </div>
@@ -73,41 +105,73 @@
             <!-- Step 2: Enter Details -->
             <div *ngIf="currentStep === 1" class="p-3" formGroupName="step2">
               <p>Enter your Name, Email, Contact</p>
-              <input type="text" formControlName="name" placeholder="Name">
-              <div *ngIf="appointmentForm.get('step2.name')?.touched && appointmentForm.get('step2.name')?.invalid"
-                class="error">Name is required</div>
-
-              <input type="text" formControlName="email" placeholder="Email">
-              <div *ngIf="appointmentForm.get('step2.email')?.touched && appointmentForm.get('step2.email')?.invalid"
-                class="error">Enter a valid email</div>
-
-              <input type="text" formControlName="contact" placeholder="Contact">
+              <input type="text" formControlName="name" placeholder="Name" />
               <div
-                *ngIf="appointmentForm.get('step2.contact')?.touched && appointmentForm.get('step2.contact')?.invalid"
-                class="error">Enter a valid 10-digit contact</div>
+                *ngIf="
+                  appointmentForm.get('step2.name')?.touched &&
+                  appointmentForm.get('step2.name')?.invalid
+                "
+                class="error"
+              >
+                Name is required
+              </div>
+
+              <input type="text" formControlName="email" placeholder="Email" />
+              <div
+                *ngIf="
+                  appointmentForm.get('step2.email')?.touched &&
+                  appointmentForm.get('step2.email')?.invalid
+                "
+                class="error"
+              >
+                Enter a valid email
+              </div>
+
+              <input
+                type="text"
+                formControlName="contact"
+                placeholder="Contact"
+              />
+              <div
+                *ngIf="
+                  appointmentForm.get('step2.contact')?.touched &&
+                  appointmentForm.get('step2.contact')?.invalid
+                "
+                class="error"
+              >
+                Enter a valid 10-digit contact
+              </div>
             </div>
 
             <!-- Step 3: Confirmation -->
             <div *ngIf="currentStep === 2" class="p-3" formGroupName="step3">
-
               <div class="meeting-details row">
                 <div class="col-md-6">
                   <h2>Confirmation</h2>
                   <p>Please confirm your preferences.</p>
-                  <p>Slot: {{ selectedSlot.start | date:'HH:mm aa' }} - {{ selectedSlot.end | date:'HH:mm aa' }} on
-                    {{selectedDate | date:'dd/MM/yyyy'}}</p>
-                  <p>Email: {{appointmentForm.get('step2.email')?.value}}</p>
-                  <p>Booked for: {{appointmentForm.get('step2.name')?.value}}</p>
+                  <p>
+                    Slot: {{ selectedSlot.start | date : "HH:mm aa" }} -
+                    {{ selectedSlot.end | date : "HH:mm aa" }} on
+                    {{ selectedDate | date : "dd/MM/yyyy" }}
+                  </p>
+                  <p>Email: {{ appointmentForm.get("step2.email")?.value }}</p>
+                  <p>
+                    Booked for: {{ appointmentForm.get("step2.name")?.value }}
+                  </p>
                 </div>
                 <div class="col-md-6">
-                  <p>Want to add some details :
+                  <p>
+                    Want to add some details :
                     <!-- <input type="text" formControlName="description" placeholder="description"> -->
-                    <textarea name="description" placeholder="description"  formControlName="description" id=""></textarea>
+                    <textarea
+                      name="description"
+                      placeholder="description"
+                      formControlName="description"
+                      id=""
+                    ></textarea>
                   </p>
                 </div>
               </div>
-
-
             </div>
           </form>
         </div>
@@ -115,22 +179,35 @@
         <!-- Navigation Buttons -->
         <div class="navigation-buttons d-flex justify-content-between w-100">
           <div>
-            <button class="btn btn--outline" (click)="previousStep()" *ngIf="currentStep !== 0">
+            <button
+              class="btn btn--outline"
+              (click)="previousStep()"
+              *ngIf="currentStep !== 0"
+            >
               Previous
             </button>
           </div>
 
           <div class="ms-auto">
-            <ng-container *ngIf="currentStep !== steps.length - 1; else payButton">
-              <button class="btn btn--primary" [disabled]="!selectedSlot" (click)="nextStep()">Next</button>
+            <ng-container
+              *ngIf="currentStep !== steps.length - 1; else payButton"
+            >
+              <button
+                class="btn btn--primary"
+                [disabled]="!selectedSlot"
+                (click)="nextStep()"
+              >
+                Next
+              </button>
             </ng-container>
 
             <ng-template #payButton>
-              <button class="btn btn-success" (click)="payWithRazorpay()">Pay ₹{{item.price}}</button>
+              <button class="btn btn-success" (click)="payWithRazorpay()">
+                Pay {{ product.price | currency : product.currency }}
+              </button>
             </ng-template>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -142,5 +219,5 @@
       <button (click)="payWithRazorpay()">Pay INR {{ inputValue }} Now</button>
     </div>
   </div> -->
-
+  </div>
 </div>

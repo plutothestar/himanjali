@@ -1,73 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCalendar } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { loadStripe, Stripe } from '@stripe/stripe-js';
+// import { loadStripe, Stripe } from '@stripe/stripe-js';
 import { environment } from '../../../environment';
 import { GoogleCalendarService } from '../../services/google-calendar.service';
-import { SafeUrlPipe } from '../../shared/safe-url.pipe';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { CurrencyService } from '../../services/currency.service';
+import { CurrencyService, Product } from '../../services/currency.service';
+import { Subscription } from 'rxjs';
+
 @Component({
   selector: 'app-booking-page',
+  standalone: true,
   imports: [CommonModule, MatCalendar, MatNativeDateModule, ReactiveFormsModule],
   templateUrl: './booking-page.component.html',
   styleUrl: './booking-page.component.scss'
 })
-export class BookingPageComponent implements OnInit {
-
-  public availableSlots: any;
-  slots: any;
-  userTimeZone: any;
-  calSrc: any;
-  selectedDate: Date = new Date;
-  private stripe!: Stripe;
+export class BookingPageComponent implements OnInit,OnDestroy {
+  selectedDate: Date = new Date();
   currentStep: number = 0;
+  product!: Product;
+  finalAvailableSlots: any = [];
+  selectedSlot: any = null;
+  appointmentForm!: FormGroup;
+  // private stripe!: Stripe;
+
   steps: any[] = [
     { label: 'Meeting Information' },
     { label: 'Contact Details' },
     { label: 'Confirmation' },
   ];
-  availablityData: any;
-  bookingData: any;
-  finalAvailableSlots: any = [];
-  selectedSlot: any = null;
-  calendarUrl: string = `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(environment.availablityCalender)}&ctz=Asia%2FKolkata`;
-  appointmentForm!: FormGroup;
-  item: any;
-  currencyCode: any;
-  priceINR: any;
-  displayPrice: number = 0;
-  currency: string = 'INR';
-  constructor(private calender: GoogleCalendarService, private fb: FormBuilder, private router: Router, private currencyService: CurrencyService) { }
+  private subscription!: Subscription;
 
-  onDateSelected(event: Date): void {
-    this.selectedDate = event;
-    this.getAvailablityByDate(new Date(this.selectedDate), environment.availablityCalender)
-  }
+  constructor(
+    private calender: GoogleCalendarService,
+    private fb: FormBuilder,
+    private router: Router,
+    private currencyService: CurrencyService
+  ) { }
 
-
-  selectSlot(slot: any) {
-    this.selectedSlot = slot;
-    this.appointmentForm.get('step1.selectedSlot')?.setValue(slot);
-    this.appointmentForm.get('step1.selectedSlot')?.markAsTouched();
-    this.appointmentForm.get('step1.selectedSlot')?.updateValueAndValidity();
-  }
   async ngOnInit(): Promise<void> {
-    this.currencyService.getUserCountry().subscribe(countryCode => {
-      if (countryCode === 'IN') {
-        // this.displayPrice = this.priceINR;
-        this.currency = 'INR';
-      } else {
-        this.currencyService.getExchangeRate().subscribe(rate => {
-          // this.displayPrice = this.priceINR * rate;
-          this.currency = 'GBP';
-        });
-      }
+    this.subscription = this.currencyService.product$.subscribe(p => {
+      this.product = p;
     });
-    const data = sessionStorage.getItem('selectedItem');
-    if (data) this.item = JSON.parse(data);
+
     this.appointmentForm = this.fb.group({
       step1: this.fb.group({
         selectedSlot: ['', Validators.required]
@@ -81,151 +58,99 @@ export class BookingPageComponent implements OnInit {
         description: ['']
       })
     });
-    this.onDateSelected(new Date(this.selectedDate));
-    const stripeInstance = await loadStripe('pk_test_51QwGxXCh8EDrcPxALNtQjurmVgKwcc2o1MOj1XMFdQCWVyXcek5JTHzUOkcjBICVT2YGb90jANDqf1c7KfCtlBNc00MO179KtO');
-    if (stripeInstance) {
-      this.stripe = stripeInstance;
-    }
-    setTimeout(() => {
-    }, 0);
-    return;
+
+    this.onDateSelected(this.selectedDate);
+
+    // const stripeInstance = await loadStripe("");
+    // if (stripeInstance) this.stripe = stripeInstance;
   }
 
-  async payWithStripe() {
-    const { error } = await this.stripe.redirectToCheckout({
-      lineItems: [{ price: 'price_1QwHAmCh8EDrcPxA8S19ygNC', quantity: 1 }],
-      mode: 'payment',
-      successUrl: `${environment.currentHost}/bookings`,
-      cancelUrl: `${environment.currentHost}/bookings`,
-    });
+  onDateSelected(event: any): void {
+    if (event < new Date()) return;
+    this.selectedDate = event;
+    this.getAvailablityByDate(new Date(this.selectedDate), environment.availablityCalender);
+  }
 
-    if (error) {
-      console.error('Payment failed:', error.message);
-    }
+  selectSlot(slot: any) {
+    this.selectedSlot = slot;
+    this.appointmentForm.get('step1.selectedSlot')?.setValue(slot);
+  }
+  dateFilter = (date: Date): boolean => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date >= today;
+  };
+  get progress(): number {
+    return ((this.currentStep + 1) / this.steps.length) * 100;
   }
 
   nextStep(): void {
-    if (this.currentStep === 0 && this.appointmentForm.get('step1')?.invalid) {
-      this.appointmentForm.get('step1')?.markAllAsTouched();
-      return;
-    }
-    if (this.currentStep === 1 && this.appointmentForm.get('step2')?.invalid) {
-      this.appointmentForm.get('step2')?.markAllAsTouched();
+    const stepGroup = this.appointmentForm.get(`step${this.currentStep + 1}`) as FormGroup;
+    if (stepGroup?.invalid) {
+      stepGroup.markAllAsTouched();
       return;
     }
     this.currentStep++;
   }
 
   previousStep(): void {
-    if (this.currentStep > 0) {
-      this.currentStep--;
-    }
+    if (this.currentStep > 0) this.currentStep--;
   }
 
-  get progress(): number {
-    return (this.currentStep + 1) / this.steps.length * 100;
-  }
+  // async payWithStripe() {
+  //   const { error } = await this.stripe.redirectToCheckout({
+  //     lineItems: [{ price: 'price_1QwHAmCh8EDrcPxA8S19ygNC', quantity: 1 }],
+  //     mode: 'payment',
+  //     successUrl: `${environment.currentHost}/bookings`,
+  //     cancelUrl: `${environment.currentHost}/bookings`,
+  //   });
 
+  //   if (error) {
+  //     console.error('Payment failed:', error.message);
+  //   }
+  // }
 
-  getAvailablityByDate(date: any, calenderId: string) {
-    const timeMin = new Date(date.setHours(0, 0, 0, 0)).toISOString();
-    const timeMax = new Date(new Date(date.setHours(23, 59, 59, 999))).toISOString();
-    const calendarId = calenderId;
+  payWithRazorpay(): void {
+    const amountInSubunits = Math.round(Number(this.product.price) * 100);
 
-    this.calender.getCalendarEvents(timeMin, timeMax, calendarId).subscribe(
-      response => {
-        this.availablityData = response.events.map((event: any) => ({
-          start: event.start.dateTime,
-          end: event.end.dateTime
-        }));
-        this.fetchBookedSlots(date, this.availablityData);
+    const options: any = {
+      key: environment.RazorpayKey,
+      amount: amountInSubunits,
+      currency: this.product.currency,
+      name: 'Himanjali Dimri',
+      description: 'Himanjali Dimri appointment',
+      image: 'logo.png',
+      handler: (response: any) => {
+        this.createEvent(response);
+        console.log('Payment successful:', response);
       },
-      error => {
-        console.error('Error:', error);
-      }
-    );
-
-  }
-
-  fetchBookedSlots(date: any, availableSlots: any) {
-    const timeMin = new Date(date.setHours(0, 0, 0, 0)).toISOString();
-    const timeMax = new Date(new Date(date.setHours(23, 59, 59, 999))).toISOString();
-    const calendarId = environment.appointmentCalender;
-
-    this.calender.getCalendarEvents(timeMin, timeMax, calendarId).subscribe(
-      response => {
-        this.bookingData = response.events.map((event: any) => ({
-          start: event.start.dateTime,
-          end: event.end.dateTime
-        }));
-        this.finalAvailableSlots = this.filterFreeSlots(availableSlots, this.bookingData);
+      prefill: {
+        name: this.appointmentForm.get('step2.name')?.value,
+        email: this.appointmentForm.get('step2.email')?.value,
+        contact: this.product.currency === 'INR'
+          ? `+91${this.appointmentForm.get('step2.contact')?.value}`
+          : this.appointmentForm.get('step2.contact')?.value
       },
-      error => {
-        console.error('Error:', error);
+      notes: {
+        address: this.appointmentForm.get('step3.description')?.value
+      },
+      theme: {
+        color: '#C6c09C'
       }
-    );
-  }
+    };
 
-  filterFreeSlots(availableSlots: any, bookedSlots: any) {
-    let freeSlots: any[] = [];
-
-    availableSlots.forEach((slot: any) => {
-      let currentStart = new Date(slot.start);
-      const slotEnd = new Date(slot.end);
-      let relevantBookings = bookedSlots
-        .filter((booked: any) => booked.end > slot.start && booked.start < slot.end)
-        .map((booked: any) => ({
-          start: new Date(booked.start),
-          end: new Date(booked.end),
-        }))
-        .sort((a: any, b: any) => a.start.getTime() - b.start.getTime());
-
-      relevantBookings.forEach((booked: any) => {
-        if (currentStart < booked.start) {
-          freeSlots.push(...this.generateHourlySlots(currentStart, booked.start));
-        }
-        currentStart = booked.end > currentStart ? booked.end : currentStart;
-      });
-
-      if (currentStart < slotEnd) {
-        freeSlots.push(...this.generateHourlySlots(currentStart, slotEnd));
-      }
-    });
-
-    return freeSlots;
-  }
-
-  generateHourlySlots(startTime: Date, endTime: Date) {
-    let slots = [];
-    let slotStart = new Date(startTime);
-
-    while (slotStart < endTime) {
-      let slotEnd = new Date(slotStart);
-      slotEnd.setHours(slotStart.getHours() + 1);
-
-      if (slotEnd > endTime) {
-        break;
-      }
-
-      slots.push({
-        start: new Date(slotStart).toISOString(),
-        end: new Date(slotEnd).toISOString(),
-      });
-
-      slotStart = new Date(slotEnd);
-    }
-
-    return slots;
+    const rzp = new (window as any).Razorpay(options);
+    rzp.open();
   }
 
   createEvent(razorPresponse: any) {
-    const startDate = this.selectedSlot.start instanceof Date ? this.selectedSlot.start : new Date(this.selectedSlot.start);
-    const endDate = this.selectedSlot.end instanceof Date ? this.selectedSlot.end : new Date(this.selectedSlot.end);
+    const startDate = new Date(this.selectedSlot.start);
+    const endDate = new Date(this.selectedSlot.end);
 
     const event = {
       summary: `Scheduled Meeting with ${this.appointmentForm.get('step2.name')?.value}`,
       location: 'Google Meet',
-      description: `Your patment refrence no:${razorPresponse.razorpay_payment_id}\n\n ${this.appointmentForm.get('step3.description')?.value}\n\nContact Details:\nEmail - ${this.appointmentForm.get('step2.email')?.value}\nPhone No - ${this.appointmentForm.get('step2.contact')?.value}`,
+      description: `Your payment reference no: ${razorPresponse.razorpay_payment_id}\n\n${this.appointmentForm.get('step3.description')?.value}\n\nEmail: ${this.appointmentForm.get('step2.email')?.value}\nPhone: ${this.appointmentForm.get('step2.contact')?.value}`,
       start: { dateTime: startDate.toISOString(), timeZone: 'Asia/Kolkata' },
       end: { dateTime: endDate.toISOString(), timeZone: 'Asia/Kolkata' },
       attendees: [{ email: this.appointmentForm.get('step2.email')?.value }],
@@ -247,55 +172,93 @@ export class BookingPageComponent implements OnInit {
     this.calender.addCalendarEvent(event).subscribe({
       next: (data) => {
         console.log('Event Created:', data);
-        console.log('Google Meet Link:', data?.conferenceData?.entryPoints[0]?.uri);
         this.router.navigate(['/confirmations']);
       },
       error: (error) => console.error('Error:', error)
     });
   }
 
-  inputValue: string = '100';
+  getAvailablityByDate(date: any, calendarId: string) {
+    const timeMin = new Date(date.setHours(0, 0, 0, 0)).toISOString();
+    const timeMax = new Date(new Date(date.setHours(23, 59, 59, 999))).toISOString();
 
-  updateInputValue(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    this.inputValue = this.item.price;
+    this.calender.getCalendarEvents(timeMin, timeMax, calendarId).subscribe(
+      response => {
+        const availablityData = response.events.map((event: any) => ({
+          start: event.start.dateTime,
+          end: event.end.dateTime
+        }));
+        this.fetchBookedSlots(date, availablityData);
+      },
+      error => console.error('Error:', error)
+    );
   }
 
-  payWithRazorpay(): void {
-    if (isNaN(Number(this.inputValue))) {
-      alert('Enter numeric value');
-      return;
+  fetchBookedSlots(date: any, availableSlots: any) {
+    const timeMin = new Date(date.setHours(0, 0, 0, 0)).toISOString();
+    const timeMax = new Date(new Date(date.setHours(23, 59, 59, 999))).toISOString();
+
+    this.calender.getCalendarEvents(timeMin, timeMax, environment.appointmentCalender).subscribe(
+      response => {
+        const bookedSlots = response.events.map((event: any) => ({
+          start: event.start.dateTime,
+          end: event.end.dateTime
+        }));
+        this.finalAvailableSlots = this.filterFreeSlots(availableSlots, bookedSlots);
+      },
+      error => console.error('Error:', error)
+    );
+  }
+
+  filterFreeSlots(availableSlots: any, bookedSlots: any) {
+    let freeSlots: any[] = [];
+    const now = new Date();
+    availableSlots.forEach((slot: any) => {
+      let currentStart = new Date(slot.start);
+      const slotEnd = new Date(slot.end);
+      if (slotEnd <= now) return;
+      const relevantBookings = bookedSlots
+        .filter((b: any) => b.end > slot.start && b.start < slot.end)
+        .map((b: any) => ({ start: new Date(b.start), end: new Date(b.end) }))
+        .sort((a: any, b: any) => a.start.getTime() - b.start.getTime());
+
+      for (let booked of relevantBookings) {
+        if (currentStart < booked.start) {
+          freeSlots.push(...this.generateHourlySlots(currentStart, booked.start, now));
+        }
+        currentStart = booked.end > currentStart ? booked.end : currentStart;
+      }
+
+      if (currentStart < slotEnd) {
+        freeSlots.push(...this.generateHourlySlots(currentStart, slotEnd, now));
+      }
+    });
+
+    return freeSlots;
+  }
+
+  generateHourlySlots(startTime: Date, endTime: Date, now: Date) {
+    let slots = [];
+    let slotStart = new Date(startTime);
+
+    while (slotStart < endTime) {
+      let slotEnd = new Date(slotStart);
+      slotEnd.setHours(slotStart.getHours() + 1);
+      if (slotEnd > endTime) break;
+
+      if (slotStart > now) {
+        slots.push({
+          start: slotStart.toISOString(),
+          end: slotEnd.toISOString()
+        });
+      }
+
+      slotStart = slotEnd;
     }
 
-    const finalRazorPayValue = Number(this.item.price) * 100;
-    const options: any = {
-      key: environment.RazorpayKey,
-      amount: finalRazorPayValue,
-      name: 'Himanjali Dimri',
-      description: 'Himanjali Dimri appointment',
-      image: 'logo.png',
-      handler: (response: any) => {
-        //alert('Payment Id ' + response.razorpay_payment_id + ' : Payment successful');
-        this.createEvent(response);
-        console.log(response);
-      },
-      prefill: {
-        name: this.appointmentForm.get('step2.name')?.value,
-        email: this.appointmentForm.get('step2.email')?.value,
-        contact: `+91${this.appointmentForm.get('step2.contact')?.value}`,
-      },
-      notes: {
-        address: this.appointmentForm.get('step2.description')?.value
-      },
-      theme: {
-        color: '#C6c09C'
-      }
-    };
-
-    const rzp = new (window as any).Razorpay(options);
-    rzp.open();
+    return slots;
   }
-
+  ngOnDestroy(): void {
+  this.subscription?.unsubscribe();
 }
-
-
+}
