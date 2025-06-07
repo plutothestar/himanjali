@@ -16,11 +16,11 @@
 
 .appointments-right {
   // flex: 1;
-  background: #FFFFF0;
+  // background: #FFFFF0;
   padding: 0.5rem;
   border-radius: 20px;
   max-height: 490px;
-  min-height: 415px;
+  // min-height: 415px;
   height: 50vh;
   position: relative;
 }
@@ -125,13 +125,13 @@
   .progress-bar-container {
     width: 100%;
     height: 8px;
-    background: #ffbeac;
+    background: #b78c4181;
     border-radius: 4px;
     overflow: hidden;
 
     .progress-bar {
       height: 100%;
-      background: #d46a4c;
+      background: #b78b41;
       transition: width 0.3s ease;
     }
   }
@@ -161,14 +161,14 @@
         width: 25px;
         height: 25px;
         border-radius: 50%;
-        background: #ffbeac;
+        background: #b78c4181;
         color: white;
         font-weight: bold;
         margin-bottom: 8px;
       }
 
       &.active .step-number {
-        background: #d46a4c;
+        background: #b78b41;
       }
 
       .step-label {
@@ -186,7 +186,7 @@
 
     h2 {
       font-size: 20px;
-      // color: #4A235A;
+      color: #d46a4c;
     }
 
     input,
@@ -195,7 +195,7 @@
       width: calc(100% - 20px);
       padding: 10px;
       margin: 10px 0;
-      border: 1px solid #b78b41;
+      border: 1px solid #d46a4c;
       // border-radius: 6px;
       font-size: 16px;
       outline: none;
@@ -255,7 +255,7 @@
 }
 
 ::ng-deep .mat-calendar-body-selected.mat-calendar-body-today {
-  background-color: #d46a4c !important;
+  background-color: #b78b41 !important;
 }
 
 ::ng-deep .mat-calendar-body-cell-content {
@@ -346,7 +346,7 @@
   border-left: 5px solid #b78b41;
   padding: 1.2rem;
   border-radius: 10px;
-  height: -webkit-fill-available;
+  // height: -webkit-fill-available;
   font-family: 'Open Sans', sans-serif;
   color: #333;
 }
@@ -389,11 +389,11 @@
 }
 
 ::ng-deep .mat-calendar-body-cell:hover {
-  background-color: #fce2ca;
+  background-color: #b78c4179;
 }
 
 ::ng-deep .mat-calendar-body-selected {
-  background-color: #d46a4c !important;
+  background-color: #b78b41 !important;
   color: #fff !important;
   outline: none;
 }
@@ -401,7 +401,7 @@
 ::ng-deep .mat-calendar-body-today:not(.mat-calendar-body-selected) {
   border: 2px solid #e78153;
   background-color: transparent;
-  color: #d46a4c;
+  color: #b78b41;
 }
 
 ::ng-deep .mat-calendar-period-button,
@@ -412,4 +412,14 @@
 
 ::ng-deep .mat-datepicker-toggle-default-icon {
   color: #d46a4c;
+}
+
+@media screen and (max-width: 768px) {
+  .slots-wrapper {
+    justify-content: center;
+  }
+
+  .slot-button {
+    margin: 5px;
+  }
 }
