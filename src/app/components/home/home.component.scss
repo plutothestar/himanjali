@@ -85,9 +85,11 @@
   max-width: 1200px;
   margin: auto;
 }
-.section-title{
-// color: #fff;
+
+.section-title {
+  // color: #fff;
 }
+
 /* Buttons */
 .btn {
   border: 1px solid #c49b63;
@@ -112,7 +114,7 @@
 /* Hero Section */
 .hero {
   // background-image: url('images/crescent.jpg');
-  
+
   font-family: sans-serif;
   // background-blend-mode: overlay;
   background-size: cover;
@@ -144,8 +146,8 @@
   margin-bottom: 2rem;
   text-align: center;
   // background: rgba(0, 0, 0, 0.1);
-    padding: 1rem;
-    // font-family: 'Assistant';
+  padding: 1rem;
+  // font-family: 'Assistant';
 }
 
 /* About Section */
@@ -195,7 +197,7 @@
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
-  width:30%;
+  width: 30%;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -256,40 +258,45 @@
 }
 
 .hero__content h1 {
-   font-family: 'The Seasons';
+  font-family: 'Josefin Sans', 'The Seasons';
   color: #c49b63;
   font-size: 2.3rem;
   max-width: 800px;
   margin-bottom: 0;
 }
+
 .hero__content p {
-  font-family: 'The Seasons';
- color: #c49b63;
- font-size:1rem;
-// float: right;
-text-align: right;
- max-width: 800px;
- margin-bottom: 1.5rem;
+  font-family: 'Josefin Sans', 'The Seasons';
+  color: #c49b63;
+  font-size: 1rem;
+  // float: right;
+  text-align: right;
+  max-width: 800px;
+  margin-bottom: 1.5rem;
 }
 
-  @media (max-width: 768px) {
-    .about {
-      flex-direction: column;
-    }
-    .services__grid{
-      flex-direction: column;
-    }
-    .service-card{
-
-      width: 100%;
-    }
-    .about__image, .about__text {
-      width: 100%;
-      padding: 0;
-    }
-
-    .overlay {
-      margin-left: 0;
-      padding: 1.5rem;
-    }
+@media (max-width: 768px) {
+  .about {
+    flex-direction: column;
   }
+
+  .services__grid {
+    flex-direction: column;
+  }
+
+  .service-card {
+
+    width: 100%;
+  }
+
+  .about__image,
+  .about__text {
+    width: 100%;
+    padding: 0;
+  }
+
+  .overlay {
+    margin-left: 0;
+    padding: 1.5rem;
+  }
+}
