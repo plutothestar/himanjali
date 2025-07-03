@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router } from '@angular/router';
 import { CurrencyService, Product } from '../../services/currency.service';
 import { Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-booking-page',
@@ -37,10 +38,12 @@ export class BookingPageComponent implements OnInit,OnDestroy {
     private calender: GoogleCalendarService,
     private fb: FormBuilder,
     private router: Router,
-    private currencyService: CurrencyService
+    private currencyService: CurrencyService,
+    private http: HttpClient
   ) { }
 
   async ngOnInit(): Promise<void> {
+     this.onDateSelected(this.selectedDate);
     this.subscription = this.currencyService.product$.subscribe(p => {
       this.product = p;
     });
@@ -59,14 +62,14 @@ export class BookingPageComponent implements OnInit,OnDestroy {
       })
     });
 
-    this.onDateSelected(this.selectedDate);
+
 
     // const stripeInstance = await loadStripe("");
     // if (stripeInstance) this.stripe = stripeInstance;
   }
 
-  onDateSelected(event: any): void {
-    if (event < new Date()) return;
+  onDateSelected(event: any): void {debugger
+    if (event.getDate() < new Date().getDate) return;
     this.selectedDate = event;
     this.getAvailablityByDate(new Date(this.selectedDate), environment.availablityCalender);
   }
@@ -190,9 +193,42 @@ export class BookingPageComponent implements OnInit,OnDestroy {
         }));
         this.fetchBookedSlots(date, availablityData);
       },
-      error => console.error('Error:', error)
-    );
-  }
+      error => {
+      console.error('Error:', error);
+
+   if (error.status === 500) {
+        // Step 1: Hit auth endpoint
+        this.http.get<{ authUrl: string }>('https://himacuity.vercel.app/api/auth').subscribe(
+          res => {
+            // Step 2: Open auth URL in popup
+            this.openPopupWindow(res.authUrl, 'Google Login', 600, 600);
+          },
+          err => {
+            console.error('Auth fetch error:', err);
+          }
+        );
+      }
+    }
+  );
+}
+openPopupWindow(url: string, title: string, w: number, h: number) {
+  const dualScreenLeft = window.screenLeft ?? window.screenX;
+  const dualScreenTop = window.screenTop ?? window.screenY;
+  const width = window.innerWidth ?? document.documentElement.clientWidth ?? screen.width;
+  const height = window.innerHeight ?? document.documentElement.clientHeight ?? screen.height;
+
+  const systemZoom = width / window.screen.availWidth;
+  const left = (width - w) / 2 / systemZoom + dualScreenLeft;
+  const top = (height - h) / 2 / systemZoom + dualScreenTop;
+
+  const newWindow = window.open(
+    url,
+    title,
+    `scrollbars=yes, width=${w / systemZoom}, height=${h / systemZoom}, top=${top}, left=${left}`
+  );
+
+  if (newWindow && newWindow.focus) newWindow.focus();
+}
 
   fetchBookedSlots(date: any, availableSlots: any) {
     const timeMin = new Date(date.setHours(0, 0, 0, 0)).toISOString();
