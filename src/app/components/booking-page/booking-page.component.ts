@@ -18,7 +18,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './booking-page.component.html',
   styleUrl: './booking-page.component.scss'
 })
-export class BookingPageComponent implements OnInit,OnDestroy {
+export class BookingPageComponent implements OnInit, OnDestroy {
   selectedDate: Date = new Date();
   currentStep: number = 0;
   product!: Product;
@@ -26,6 +26,7 @@ export class BookingPageComponent implements OnInit,OnDestroy {
   selectedSlot: any = null;
   appointmentForm!: FormGroup;
   // private stripe!: Stripe;
+  isLoadingAvailability: boolean = false;
 
   steps: any[] = [
     { label: 'Meeting Information' },
@@ -43,7 +44,7 @@ export class BookingPageComponent implements OnInit,OnDestroy {
   ) { }
 
   async ngOnInit(): Promise<void> {
-     this.onDateSelected(this.selectedDate);
+    this.onDateSelected(this.selectedDate);
     this.subscription = this.currencyService.product$.subscribe(p => {
       this.product = p;
     });
@@ -68,7 +69,7 @@ export class BookingPageComponent implements OnInit,OnDestroy {
     // if (stripeInstance) this.stripe = stripeInstance;
   }
 
-  onDateSelected(event: any): void {debugger
+  onDateSelected(event: any): void {
     if (event.getDate() < new Date().getDate) return;
     this.selectedDate = event;
     this.getAvailablityByDate(new Date(this.selectedDate), environment.availablityCalender);
@@ -182,6 +183,7 @@ export class BookingPageComponent implements OnInit,OnDestroy {
   }
 
   getAvailablityByDate(date: any, calendarId: string) {
+    this.isLoadingAvailability = true;
     const timeMin = new Date(date.setHours(0, 0, 0, 0)).toISOString();
     const timeMax = new Date(new Date(date.setHours(23, 59, 59, 999))).toISOString();
 
@@ -194,41 +196,42 @@ export class BookingPageComponent implements OnInit,OnDestroy {
         this.fetchBookedSlots(date, availablityData);
       },
       error => {
-      console.error('Error:', error);
+        console.error('Error:', error);
 
-   if (error.status === 500) {
-        // Step 1: Hit auth endpoint
-        this.http.get<{ authUrl: string }>('https://himacuity.vercel.app/api/auth').subscribe(
-          res => {
-            // Step 2: Open auth URL in popup
-            this.openPopupWindow(res.authUrl, 'Google Login', 600, 600);
-          },
-          err => {
-            console.error('Auth fetch error:', err);
-          }
-        );
+        if (error.status === 500) {
+          // Step 1: Hit auth endpoint
+          this.http.get<{ authUrl: string }>('https://himacuity.vercel.app/api/auth').subscribe(
+            res => {
+              // Step 2: Open auth URL in popup
+              this.openPopupWindow(res.authUrl, 'Google Login', 600, 600);
+            },
+            err => {
+              console.error('Auth fetch error:', err);
+            }
+          );
+        }
+        this.isLoadingAvailability = false;
       }
-    }
-  );
-}
-openPopupWindow(url: string, title: string, w: number, h: number) {
-  const dualScreenLeft = window.screenLeft ?? window.screenX;
-  const dualScreenTop = window.screenTop ?? window.screenY;
-  const width = window.innerWidth ?? document.documentElement.clientWidth ?? screen.width;
-  const height = window.innerHeight ?? document.documentElement.clientHeight ?? screen.height;
+    );
+  }
+  openPopupWindow(url: string, title: string, w: number, h: number) {
+    const dualScreenLeft = window.screenLeft ?? window.screenX;
+    const dualScreenTop = window.screenTop ?? window.screenY;
+    const width = window.innerWidth ?? document.documentElement.clientWidth ?? screen.width;
+    const height = window.innerHeight ?? document.documentElement.clientHeight ?? screen.height;
 
-  const systemZoom = width / window.screen.availWidth;
-  const left = (width - w) / 2 / systemZoom + dualScreenLeft;
-  const top = (height - h) / 2 / systemZoom + dualScreenTop;
+    const systemZoom = width / window.screen.availWidth;
+    const left = (width - w) / 2 / systemZoom + dualScreenLeft;
+    const top = (height - h) / 2 / systemZoom + dualScreenTop;
 
-  const newWindow = window.open(
-    url,
-    title,
-    `scrollbars=yes, width=${w / systemZoom}, height=${h / systemZoom}, top=${top}, left=${left}`
-  );
+    const newWindow = window.open(
+      url,
+      title,
+      `scrollbars=yes, width=${w / systemZoom}, height=${h / systemZoom}, top=${top}, left=${left}`
+    );
 
-  if (newWindow && newWindow.focus) newWindow.focus();
-}
+    if (newWindow && newWindow.focus) newWindow.focus();
+  }
 
   fetchBookedSlots(date: any, availableSlots: any) {
     const timeMin = new Date(date.setHours(0, 0, 0, 0)).toISOString();
@@ -241,8 +244,12 @@ openPopupWindow(url: string, title: string, w: number, h: number) {
           end: event.end.dateTime
         }));
         this.finalAvailableSlots = this.filterFreeSlots(availableSlots, bookedSlots);
+        this.isLoadingAvailability = false;
       },
-      error => console.error('Error:', error)
+      error => {
+        console.error('Error:', error)
+        this.isLoadingAvailability = false;
+      }
     );
   }
 
@@ -295,6 +302,6 @@ openPopupWindow(url: string, title: string, w: number, h: number) {
     return slots;
   }
   ngOnDestroy(): void {
-  this.subscription?.unsubscribe();
-}
+    this.subscription?.unsubscribe();
+  }
 }

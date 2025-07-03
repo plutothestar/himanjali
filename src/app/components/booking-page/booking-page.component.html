@@ -66,9 +66,10 @@
                   ><small *ngIf="finalAvailableSlots.length > 0"
                     >for {{ selectedDate | date }}</small
                   >
+                  <h6 style="color: #b78b41;" *ngIf="isLoadingAvailability" >Loading slots ...</h6>
                   <div
                     class="slots-wrapper"
-                    *ngIf="finalAvailableSlots.length > 0; else noSlots"
+                    *ngIf="finalAvailableSlots.length > 0 || isLoadingAvailability; else noSlots"
                   >
                     <div
                       class="step"
