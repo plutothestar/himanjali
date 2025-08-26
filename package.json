@@ -24,6 +24,13 @@
     "@stripe/stripe-js": "^5.7.0",
     "bootstrap": "^5.3.3",
     "crypto-js": "^4.2.0",
+    "jwt-decode": "^4.0.0",
+    "ngx-editor": "^19.0.0-beta.1",
+    "ngx-image-compress": "^18.1.5",
+    "ngx-quill": "^27.1.2",
+    "ngx-spinner": "^19.0.0",
+    "quill": "^2.0.3",
+    "quill-mention": "^6.1.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
