@@ -1,0 +1,79 @@
+.testimonial-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1rem;
+//   font-family: Arial, sans-serif;
+}
+
+.heading {
+//   font-size: 1.5rem;
+//   font-weight: bold;
+//   margin-bottom: 1rem;
+  text-align: center;
+}
+
+.upload-box {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.upload-box input[type="file"] {
+  border: 1px solid #ccc;
+  padding: 0.3rem;
+  border-radius: 4px;
+}
+
+.upload-button {
+  background-color: #c49b63;
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+}
+
+.upload-box button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  height: min-content;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: fill;
+  display: block;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(0,0,0,0.6);
+  border: none;
+  color: white;
+  font-size: 1rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+}
+
+.delete-btn:hover {
+  background: rgba(255,0,0,0.8);
+}

@@ -16,12 +16,12 @@ export class GoogleCalendarService {
       .set('timeMax', timeMax)
       .set('CALENDAR_ID', calendarId);
 
-    return this.http.get(`${environment.vercel.ApiUrl}/getCalendarEvents`, { params });
+    return this.http.get(`${environment.vercel.ApiUrl}getCalendarEvents`, { params });
   }
   addCalendarEvent(eventData: any): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    return this.http.post(`${environment.vercel.ApiUrl}/getCalendarEvents`, eventData, { headers });
+    return this.http.post(`${environment.vercel.ApiUrl}getCalendarEvents`, eventData, { headers });
   }
 }
 

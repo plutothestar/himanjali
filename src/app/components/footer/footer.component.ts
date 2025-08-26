@@ -5,7 +5,7 @@ import { BlogMeta } from '../../shared/blog-meta';
 import { BlogService } from '../../services/blog.service';
 @Component({
   selector: 'app-footer',
-  imports: [RouterLink, CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
 })
@@ -16,6 +16,6 @@ export class FooterComponent {
 
   ngOnInit(): void {
     this.year = new Date().getFullYear();
-    this.blogService.getBlogs().subscribe(data => this.blogs = data);
+    // this.blogService.getBlogs().subscribe(data => this.blogs = data);
   }
 }

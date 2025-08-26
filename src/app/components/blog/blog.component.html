@@ -1,0 +1,60 @@
+<div class="container">
+  <article class="blog-container" *ngIf="blog">
+    <header class="blog-header d-flex justify-content-between align-items-center">
+      <div>
+        <h1 class="blog-title">{{ blog.title }}</h1>
+
+        <p class="blog-meta">By <strong>{{ blog.author }}</strong> • <time datetime="2025-05-06">{{
+            blog.publication_date | date }}</time></p>
+      </div>
+
+      <div class="actions d-flex justify-content-between"><button *ngIf="isAdmin()" (click)="editBlog(blog._id)" class="btn btn-primary mt-2">Edit</button><button *ngIf="isAdmin()" (click)="deleteBlog(blog._id)" class="btn btn-primary mt-2">Remove</button></div>
+    </header>
+
+    <figure class="blog-banner">
+      <img [src]="blog.banner_image_url" alt="Blog banner">
+      <figcaption>Banner caption or source</figcaption>
+    </figure>
+    <section class="blog-content" [innerHTML]="blogContent"></section>
+    <!-- <section class="blog-content">
+        <p>{{ blog.content }}</p>
+      <p>This is a paragraph of your blog post. It can contain <strong>bold text</strong>, <em>italicized text</em>, links, images, and more.</p>
+
+      <h2>Subheading</h2>
+      <p>More content under a subheading. Write tips, stories, tutorials, etc.</p> -->
+
+    <!-- <pre><code>
+// Sample code block
+
+      </code></pre> -->
+
+    <!-- <blockquote>
+        "This is a quote from someone important or relevant to the post."
+      </blockquote>
+
+      <ul>
+        <li>Bullet point one</li>
+        <li>Bullet point two</li>
+      </ul>
+
+      <p>End with a nice conclusion or call to action.</p>
+    </section> -->
+
+    <footer class="blog-footer" *ngIf="blog.tags">
+      <p>Tagged in:</p>
+
+      <span class="tags" *ngFor="let tag of blog.tags">{{tag}}</span>
+
+    </footer>
+
+  </article>
+  <article class="blog-container" *ngIf="!blog">
+    <header class="blog-header d-flex justify-content-center align-items-center">
+
+      <h1 class="blog-title">No blog found</h1>
+
+    </header>
+
+  </article>
+
+</div>

@@ -1,0 +1,106 @@
+container {
+    max-width: 800px;
+    width: 90%;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+  }
+
+  .blog-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="file"],
+  input,
+  ngx-editor {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 16px;
+    width: 100%;
+  }
+
+  ngx-editor {
+    min-height: 200px;
+    background-color: #fafafa;
+    display: block;
+  }
+
+  .form-actions {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  // button[type="submit"] {
+  //   padding: 12px 25px;
+  //   font-size: 16px;
+  //   background-color: #007bff;
+  //   color: white;
+  //   border: none;
+  //   border-radius: 6px;
+  //   cursor: pointer;
+  //   transition: background 0.3s ease;
+  // }
+
+  // button[type="submit"]:hover:not(:disabled) {
+  //   background-color: #0056b3;
+  // }
+
+  // button:disabled {
+  //   background-color: #ccc;
+  //   cursor: not-allowed;
+  // }
+
+  .NgxEditor__Wrapper {
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  /* Responsive tweaks */
+  @media (max-width: 768px) {
+    .container {
+      padding: 20px;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    button[type="submit"] {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    label {
+      font-size: 14px;
+    }
+
+    input,
+    ngx-editor {
+      font-size: 14px;
+    }
+  }
