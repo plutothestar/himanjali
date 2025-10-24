@@ -2,6 +2,7 @@ export const environment = {
   production: true,
   vercel: {
     ApiUrl: 'https://himacuity.vercel.app/api',
+    //  ApiUrl: 'http://localhost:3000/api',
   },
   gitHub: {
     ApiUrl: 'https://api.github.com/repos/plutothestar/himacms/contents/',

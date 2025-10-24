@@ -3,16 +3,18 @@ import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { filter } from 'rxjs';
 import { FooterComponent } from "./components/footer/footer.component"; import { HomeComponent } from "./components/home/home.component";
-
+import { LoaderService } from './services/loader.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { LoaderComponent } from './components/loader/loader.component';
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavBarComponent, FooterComponent],
+  imports: [RouterOutlet, NavBarComponent, FooterComponent,NgxSpinnerModule,LoaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
   title = 'Himanjali';
-  constructor(private router: Router) { }
+  constructor(private router: Router,private loaderService: LoaderService) { }
 
   ngOnInit() {
     const homeWrapper = document.getElementById('home-static-wrapper');

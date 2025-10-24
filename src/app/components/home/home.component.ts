@@ -4,6 +4,7 @@ import { BlogService } from '../../services/blog.service';
 import { BlogMeta } from '../../shared/blog-meta';
 import { Router, RouterLink } from '@angular/router';
 import { CurrencyService } from '../../services/currency.service';
+import { environment } from '../../../environment.prod';
 declare var Flickity: any;
 @Component({
   selector: 'app-home',
@@ -17,23 +18,22 @@ export class HomeComponent implements AfterViewInit {
   constructor(private blogService: BlogService, private router: Router) { }
 
   ngOnInit(): void {
-    this.blogService.getBlogs().subscribe(data => this.blogs = data);
+    // this.blogService.getBlogs().subscribe(data => this.blogs = data);
   }
 
 
   ngAfterViewInit() {
-    fetch(this.API_URL)
+    fetch(`${environment.vercel.ApiUrl}/testimonials`)
       .then(res => res.json())
       .then(files => {
-        const images = files.filter((file: any) => file.type === 'file' && file.download_url);
+        const images = files.data.filter((file: any) => file.url);
         const carousel = document.getElementById('github-carousels');
 
         images.forEach((file: any) => {
           const div = document.createElement('div');
           div.className = 'carousel-cell';
           const img = document.createElement('img');
-          img.src = file.download_url;
-          img.alt = file.name;
+          img.src = file.url;
           div.appendChild(img);
           carousel?.appendChild(div);
         });

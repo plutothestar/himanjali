@@ -1,0 +1,48 @@
+<div class="container">
+  <h2>{{ isEditMode ? 'Edit Blog' : 'Create Blog' }}</h2>
+  <div *ngIf="isEditMode && blog.banner_image_url">
+    <p>Current Banner:</p>
+    <img [src]="blog.banner_image_url" alt="Banner" width="100%" style="max-height: 250px; object-fit: cover;" />
+  </div>
+
+  <form (ngSubmit)="saveBlog()" #blogForm="ngForm" class="blog-form">
+    <div class="form-group">
+      <label for="title">Title:</label>
+      <input id="title" name="title" [(ngModel)]="blog.title" required />
+    </div>
+
+    <div class="form-group">
+      <label for="author">Author:</label>
+      <input id="author" name="author" [(ngModel)]="blog.author" required />
+    </div>
+
+    <div class="form-group">
+      <label for="publication_date">Publication Date:</label>
+      <input id="publication_date" name="publication_date" type="date" [(ngModel)]="blog.publication_date" required />
+    </div>
+
+    <div class="form-group">
+      <label for="content">Content:</label>
+      <div class="NgxEditor__Wrapper">
+        <ngx-editor-menu [editor]="editor" [toolbar]="toolbar"></ngx-editor-menu>
+        <ngx-editor name="content" [editor]="editor" [(ngModel)]="blog.content"
+          [placeholder]="'Type here...'"></ngx-editor>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="tags">Tags (comma-separated):</label>
+      <input id="tags" name="tags" [(ngModel)]="tagString" required />
+
+    </div>
+
+    <div class="form-group">
+      <label for="banner_image">Banner Image:</label>
+      <input id="banner_image" type="file" (change)="onFileChange($event)" />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class=" btn btn-primary w-25" *ngIf="isAdmin()" [disabled]="blogForm.invalid">Save</button>
+    </div>
+  </form>
+</div>

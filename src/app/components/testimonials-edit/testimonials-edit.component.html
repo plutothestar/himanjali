@@ -1,0 +1,23 @@
+<div class="testimonial-container my-5 py-5">
+    <h2 class="heading">Manage Testimonials</h2>
+
+    <div class="upload-box d-flex justify-content-between align-items-center ">
+        <div>
+            <input type="file" (change)="onFileSelected($event)" />
+            <button class="upload-button" (click)="uploadImage()" [disabled]="loading || !selectedFile">
+                {{ loading ? 'Uploading...' : 'Upload' }}
+            </button>
+        </div>
+
+        <button *ngIf="isAdmin()" (click)="createNewBlog()" class="btn btn-primary mt-2 align-items-center ">Add New
+            Blog</button>
+    </div>
+
+    <div class="gallery">
+        <div class="card" *ngFor="let t of testimonials">
+            <img [src]="t.url" alt="Testimonial image" />
+            <button class="delete-btn" (click)="deleteImage(t.public_id)">✖</button>
+        </div>
+        <h1 *ngIf="testimonialLoading">Loading testimonial...</h1>
+    </div>
+</div>
