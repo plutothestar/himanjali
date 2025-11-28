@@ -1,6 +1,4 @@
 
----
-
 # **Himanjali – Portfolio & Appointment**
 
 Himanjali is a modern, responsive **Angular-based portfolio website** designed for a therapist and tarot reader.
@@ -47,15 +45,12 @@ The site is fully deployed on **Vercel**, offering fast performance and seamless
 
 ---
 
----
 
 ## 🌐 **Live Demo**
 
 The project is live on Vercel:
 `(https://www.himanjalidimri.com/)`
-*(Share the link and I’ll insert it properly.)*
 
----
 
 
 ---
