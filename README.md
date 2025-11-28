@@ -48,7 +48,7 @@ The site is fully deployed on **Vercel**, offering fast performance and seamless
 
 ## 🌐 **Live Demo**
 
-The project is live on Vercel:
+The project is live :
 `(https://www.himanjalidimri.com/)`
 
 
