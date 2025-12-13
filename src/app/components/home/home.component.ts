@@ -23,7 +23,7 @@ export class HomeComponent implements AfterViewInit {
 
 
   ngAfterViewInit() {
-    fetch(`${environment.vercel.ApiUrl}/testimonials`)
+    fetch(`${environment.vercel.ApiUrl}testimonials`)
       .then(res => res.json())
       .then(files => {
         const images = files.data.filter((file: any) => file.url);
