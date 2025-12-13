@@ -90,7 +90,12 @@
 .btn {
   color: #fff;
 }
-.heading{font-size: 3rem;}
+
+.heading {
+  font-size: 3rem;
+  text-align: center;
+}
+
 /* Responsive adjustments */
 @media screen and (max-width: 768px) {
   .services-title {
